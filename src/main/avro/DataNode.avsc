@@ -1,0 +1,51 @@
+[ {
+  
+   		 "type": "enum",
+   		 "name": "Operation",
+   		 "namespace": "com.coffeetechgaff.storm.datanode",
+    	"symbols": [
+    	  "CREATE",
+    	  "UPDATE",
+    	  "DELETE",
+    	  "WRONG"
+	    ]
+  	},
+  	{
+    "namespace": "com.coffeetechgaff.storm.datanode",
+    "type": "record",
+    "name": "DataNode",
+    "fields": [
+       {
+            "name": "operation",
+            "type": "Operation"
+        },
+        {
+            "name": "id",
+            "type": ["string","null"]
+        }, 
+        {
+            "name": "dataTypes",
+            "type": {
+                "type": "array",
+                "items": "string"
+            	}
+        }, 
+        {
+            "name": "name",
+            "type": ["string","null"]
+        }, 
+        {
+            "name": "description",
+            "type": ["string","null"]
+        }, 
+        {
+            "name": "classification",
+            "type": ["string","null"]
+        },
+        {
+            "name": "maturity",
+            "type": ["string","null"]
+        }
+    ]
+}
+]

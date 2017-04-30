@@ -1,0 +1,150 @@
+[
+  {
+    "type": "record",
+    "name": "NodeConfig",
+    "namespace": "com.coffeetechgaff.storm.algorithmnode",
+    "fields": [
+      {
+        "name": "name",
+        "type": "string",
+        "doc": "Name for the stream. Used for configuration purposes, not related to topic name."
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "doc": "Stream type. Can be namespace scoped reference for a particular type, or could be a generic type indicator."
+      }
+    ]
+  },
+  {
+  
+   		 "type": "enum",
+   		 "name": "Operation",
+   		 "namespace": "com.coffeetechgaff.storm.algorithmnode",
+    	"symbols": [
+    	  "CREATE",
+    	  "UPDATE",
+    	  "DELETE",
+    	  "WRONG"
+	    ]
+  	},
+  {
+    "type": "record",
+    "name": "AlgorithmNode",
+    "namespace": "com.coffeetechgaff.storm.algorithmnode",
+    "fields": [
+    	{
+   		"name": "operation",
+        "type": "Operation",
+        "doc": "Indicates the operation for the algorithm node."
+  	},
+      {
+        "name": "uid",
+        "type": "string",
+        "doc": "Unique identifier for the algorithm"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "doc": "Name for the algorithm, not necessarily unique."
+      },
+      {
+        "name": "status",
+        "type": {
+          "type": "enum",
+          "name": "NodeStatus",
+          "symbols": [
+            "TESTING",
+            "PRODUCTION",
+            "RETIRED"
+          ]
+        },
+        "default": "PRODUCTION",
+        "doc": "Indicates the development status of the algorithm."
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "doc": "Brief description of the purpose for the algorithm."
+      },
+      {
+        "name": "author",
+        "type": "string",
+        "doc": "Author responsible for the algorithm.",
+        "default": ""
+      },
+      {
+        "name": "email",
+        "type": "string",
+        "doc": "Contact email for the author of the algorithm.",
+        "default": ""
+      },
+      {
+        "name": "version",
+        "type": "string",
+        "doc": "Version for the algorithm.",
+        "default": ""
+      },
+      {
+        "name": "input",
+        "type": {
+          "type": "array",
+          "items": "NodeConfig"
+        },
+        "doc": "Input source stream type of the algorithm. Defined as array for future expansion."
+      },
+      {
+        "name": "output",
+        "type": {
+          "type": "array",
+          "items": "NodeConfig"
+        },
+        "doc": "Output source stream type of the algorithm. Defined as array for future expansion."
+      },
+      {
+        "name": "parameters",
+        "type": {
+          "type": "array",
+          "items": {
+            "type": "record",
+            "name": "AlgorithmParameter",
+            "fields": [
+              {
+                "name": "entity",
+                "type": "string",
+                "doc": "Unique name for the parameter, generally driven by the backing implementation."
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "doc": "User visible name for the parameter."
+              },
+              {
+                "name": "description",
+                "type": "string",
+                "doc": "User visible description for the parameter.",
+                "default": ""
+              },
+              {
+                "name": "type",
+                "type": "string",
+                "doc": "Value type, string, integer, double, datetime",
+                "default": "string"
+              },
+              {
+                "name": "defaultValue",
+                "doc":"Default value, if any, for the parameter.",
+                "type": "string"
+              },
+              {
+                "name": "uiHint",
+                "type": "string",
+                "doc":"Hint for presentation of this parameter in the UI.",
+                "default": ""
+              }
+            ]
+          }
+        }
+      }]
+  }
+]

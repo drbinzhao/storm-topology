@@ -1,0 +1,404 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>storm-topology</artifactId>
+    <groupId>com.coffeetechfaff.blog</groupId>
+	<version>0.1-SNAPSHOT</version>
+    <name>coffeetechgaff strom topology</name>
+    <description>The Topology Service</description>
+    <packaging>jar</packaging>
+
+    <properties>
+	    <kafka.version>0.10.0.1</kafka.version>
+	    <scala.version>2.11</scala.version>
+	    <janusgraph.version>0.1.0</janusgraph.version>
+	    <hbase.version>1.2.4</hbase.version>
+	    <elasticsearch.version>2.4.4</elasticsearch.version>
+	    <storm.version>1.0.2</storm.version>
+    </properties>
+    
+    <build>
+		<plugins>
+			<plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-compiler-plugin</artifactId>
+	            <configuration>
+	                <source>1.8</source>
+	                <target>1.8</target>
+	            </configuration>
+	        </plugin>
+	        <plugin>
+			  <groupId>org.apache.avro</groupId>
+			  <artifactId>avro-maven-plugin</artifactId>
+			  <version>1.8.1</version>
+			  <executions>
+			    <execution>
+			      <phase>generate-sources</phase>
+			      <goals>
+			        <goal>schema</goal>
+			      </goals>
+			      <configuration>
+			        <sourceDirectory>${basedir}/src/main/avro/</sourceDirectory>
+			        <outputDirectory>${basedir}/src/main/java/</outputDirectory>
+			       	<stringType>String</stringType>
+			      </configuration>
+			    </execution>
+			  </executions>
+			</plugin>
+		 	<plugin>
+                   <groupId>org.eclipse.m2e</groupId>
+                   <artifactId>lifecycle-mapping</artifactId>
+                   <version>1.0.0</version>
+                   <configuration>
+                       <lifecycleMappingMetadata>
+                           <pluginExecutions>
+                               <pluginExecution>
+                                   <pluginExecutionFilter>
+                                       <groupId>org.jacoco</groupId>
+                                       <artifactId>
+                                           jacoco-maven-plugin
+                                       </artifactId>
+                                       <versionRange>
+                                           [${jacoco.version},)
+                                       </versionRange>
+                                       <goals>
+                                           <goal>prepare-agent</goal>
+                                       </goals>
+                                   </pluginExecutionFilter>
+                                   <action>
+                                       <ignore/>
+                                   </action>
+                               </pluginExecution>
+                               <pluginExecution>
+                                   <pluginExecutionFilter>
+                                       <groupId>org.apache.avro</groupId>
+                                       <artifactId>avro-maven-plugin</artifactId>
+                                       <versionRange>[1.7.6,)</versionRange>
+                                       <goals>
+                                           <goal>schema</goal>
+                                       </goals>
+                                   </pluginExecutionFilter>
+                                   <action>
+                                       <execute/>
+                                   </action>
+                               </pluginExecution>
+                               <pluginExecution>
+                                   <pluginExecutionFilter>
+                                       <groupId>
+                                           net.revelc.code
+                                       </groupId>
+                                       <artifactId>
+                                           formatter-maven-plugin
+                                       </artifactId>
+                                       <versionRange>
+                                           [0.5.2,)
+                                       </versionRange>
+                                       <goals>
+                                           <goal>format</goal>
+                                       </goals>
+                                   </pluginExecutionFilter>
+                                   <action>
+                                       <ignore/>
+                                   </action>
+                               </pluginExecution>
+                           </pluginExecutions>
+                       </lifecycleMappingMetadata>
+                   </configuration>
+               </plugin>
+				<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${session.executionRootDirectory}/target/build</outputDirectory>
+							<artifactSet>
+                                <excludes>
+                                    <exclude>org.apache.spark:*</exclude>
+                                    <exclude>log4j:*</exclude>
+                                    <exclude>org.slf4j:slf4j-log4j12:*</exclude>
+                                </excludes>
+                            </artifactSet>
+							<filters>
+								<filter>
+									<artifact>*:*</artifact>
+									<excludes>
+										<exclude>META-INF/*.SF</exclude>
+										<exclude>META-INF/*.DSA</exclude>
+										<exclude>META-INF/*.RSA</exclude>
+									</excludes>
+								</filter>
+							</filters>
+							<transformers>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<manifestEntries>
+										<Specification-Title>Example Storm Topology</Specification-Title>
+										<Specification-Vendor>coffeetechgaff.com</Specification-Vendor>
+										<Specification-Version>${project.version}</Specification-Version>
+										<Implementation-Title>com.coffeetechgaff.storm</Implementation-Title>
+										<Implementation-Vendor>coffeetechgaff.com</Implementation-Vendor>
+										<Implementation-Version>${project.version}</Implementation-Version>
+									</manifestEntries>
+								</transformer>
+
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+							</transformers>
+							<createDependencyReducedPom>false</createDependencyReducedPom>
+							<minimizeJar>false</minimizeJar>
+							<finalName>storm-topology-${project.version}-everything</finalName>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka_${scala.version}</artifactId>
+			<version>${kafka.version}</version>
+			<exclusions>
+				<exclusion>
+	                <groupId>org.apache.zookeeper</groupId>
+	                <artifactId>zookeeper</artifactId>
+	            </exclusion>
+	            <exclusion>
+           			<groupId>log4j</groupId>
+           			<artifactId>log4j</artifactId>
+        		</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<!-- Janus Graph Dependency -->
+		<dependency>
+		   <groupId>org.janusgraph</groupId>
+		   <artifactId>janusgraph-all</artifactId>
+		   <version>${janusgraph.version}</version>
+		   <exclusions>
+			   	<exclusion>
+			   		<groupId>org.slf4j</groupId>
+	    			<artifactId>jcl-over-slf4j</artifactId>
+			   	</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>log4j</groupId>
+					<artifactId>log4j</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>junit</groupId>
+                	<artifactId>junit</artifactId>
+				</exclusion>
+                <exclusion>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-slf4j-impl</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>log4j-over-slf4j</artifactId>
+                </exclusion>
+				<exclusion>
+					 <groupId>org.mockito</groupId>
+                	<artifactId>mockito-all</artifactId>
+				</exclusion>
+				<!--  There were multiple sl4j in our class path because of JanusGraph dependency. We need to exclude following to include our SL4J dependency -->
+				 <exclusion>
+	                <groupId>ch.qos.logback</groupId>
+	                <artifactId>logback-classic</artifactId>
+	            </exclusion>
+	            <exclusion>
+	            	<groupId>org.scala-lang</groupId>
+    				<artifactId>scala-reflect</artifactId>
+	            </exclusion>
+	            <exclusion>
+	            	<groupId>com.fasterxml.jackson.module</groupId>
+    				<artifactId>jackson-module-scala_2.10</artifactId>
+	            </exclusion>
+	            <exclusion>
+		            <groupId>com.sun.jersey</groupId>
+		            <artifactId>jersey-server</artifactId>
+	            </exclusion>
+	            <exclusion>
+		            <groupId>com.sun.jersey</groupId>
+		            <artifactId>jersey-core</artifactId>
+	            </exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+		  <groupId>org.apache.avro</groupId>
+		  <artifactId>avro</artifactId>
+		  <version>1.8.1</version>
+		</dependency>
+		
+		 <dependency>
+		    <groupId>org.apache.avro</groupId>
+		    <artifactId>avro-maven-plugin</artifactId>
+		    <version>1.8.1</version>
+		  </dependency>
+		  <dependency>
+		    <groupId>org.apache.avro</groupId>
+		    <artifactId>avro-compiler</artifactId>
+		    <version>1.8.1</version>
+		  </dependency>
+		  <dependency>
+		    <groupId>org.apache.avro</groupId>
+		    <artifactId>avro-ipc</artifactId>
+		    <version>1.8.1</version>
+		  </dependency>
+
+		<dependency>
+		    <groupId>org.apache.httpcomponents</groupId>
+		    <artifactId>httpclient</artifactId>
+		    <version>4.5.3</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.apache.storm/storm-core -->
+		<dependency>
+		    <groupId>org.apache.storm</groupId>
+		    <artifactId>storm-core</artifactId>
+		    <version>${storm.version}</version>
+		    <scope>provided</scope>
+		    <exclusions>
+                <exclusion>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-slf4j-impl</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>log4j-over-slf4j</artifactId>
+                </exclusion>
+            </exclusions>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-core</artifactId>
+		    <version>2.8.8</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.8.8</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-core</artifactId>
+		    <version>4.3.7.RELEASE</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+		<dependency>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-core</artifactId>
+		    <version>2.1</version>
+		    <scope>compile</scope>
+		</dependency>
+		
+		
+	
+		<!-- https://mvnrepository.com/artifact/org.apache.storm/storm-kafka -->
+		<dependency>
+		    <groupId>org.apache.storm</groupId>
+		    <artifactId>storm-kafka</artifactId>
+		    <version>${storm.version}</version>
+		    <scope>compile</scope>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.apache.zookeeper/zookeeper -->
+		<dependency>
+		    <groupId>org.apache.zookeeper</groupId>
+		    <artifactId>zookeeper</artifactId>
+		    <version>3.4.8</version>
+		</dependency>
+
+				<!-- https://mvnrepository.com/artifact/org.clojure/clojure -->
+		<dependency>
+    		<groupId>org.clojure</groupId>
+    		<artifactId>clojure</artifactId>
+    		<version>1.7.0</version>
+		</dependency>
+		
+		<!-- We need this scala version as a compile scope -->
+		<dependency>
+		    <groupId>org.scala-lang</groupId>
+		    <artifactId>scala-library</artifactId>
+		    <version>2.11.4</version><!--$NO-MVN-MAN-VER$-->
+		    <scope>compile</scope>
+		</dependency>
+        
+        <!-- https://mvnrepository.com/artifact/org.apache.curator/curator-framework -->
+		<dependency>
+		    <groupId>org.apache.curator</groupId>
+		    <artifactId>curator-framework</artifactId>
+		    <version>2.10.0</version>
+		</dependency>
+
+		<!-- testing frameworks -->
+		<!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-all -->
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-all</artifactId>
+			<version>1.3</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.powermock/powermock-module-junit4 -->
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-module-junit4</artifactId>
+			<version>1.6.6</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.powermock/powermock-api-mockito -->
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-api-mockito</artifactId>
+			<version>1.6.6</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.powermock/powermock-core -->
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-core</artifactId>
+			<version>1.6.6</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+		<dependency>
+		    <groupId>redis.clients</groupId>
+		    <artifactId>jedis</artifactId>
+		    <version>2.9.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.fiftyonred</groupId>
+			<artifactId>mock-jedis</artifactId>
+			<version>0.4.0</version>
+			<type>jar</type>
+			<scope>test</scope>
+		</dependency>
+		
+	</dependencies>
+	
+</project>
