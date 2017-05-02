@@ -92,7 +92,7 @@ public class AlgorithmBoltTest{
 		// mocking
 		Tuple input = mock(Tuple.class);
 		when(input.getBinary(0)).thenReturn(getByteArray());
-		when(reader.read(any(), any())).thenReturn(ExampleTopologyCommonTestUtils.getAnalyticDefinationObject());
+		when(reader.read(any(), any())).thenReturn(ExampleTopologyCommonTestUtils.getAlgorithmObject());
 
 		// calling method
 		algorithmBolt.execute(input);
@@ -100,7 +100,7 @@ public class AlgorithmBoltTest{
 		// Here we just verify a call.
 		verify(algorithmBolt, times(1)).execute(input);
 		verify(collector).emit(ExampleTopologyUtils.ALGORITHMSTREAM,
-				new Values(ExampleTopologyCommonTestUtils.getAnalyticDefinationObject()));
+				new Values(ExampleTopologyCommonTestUtils.getAlgorithmObject()));
 		verify(collector).ack(input);
 	}
 
@@ -154,7 +154,7 @@ public class AlgorithmBoltTest{
 	}
 
 	private byte[] getByteArray() throws IOException{
-		AlgorithmNode ad = ExampleTopologyCommonTestUtils.getAnalyticDefinationObject();
+		AlgorithmNode ad = ExampleTopologyCommonTestUtils.getAlgorithmObject();
 
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		ObjectOutput out = null;

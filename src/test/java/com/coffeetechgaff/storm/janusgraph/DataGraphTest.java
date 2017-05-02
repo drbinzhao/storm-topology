@@ -400,19 +400,19 @@ public class DataGraphTest{
 	}
 
 	private AlgorithmNode createAlgorithmRecord1(){
-		return ExampleTopologyCommonTestUtils.getAnalyticDefinationObject();
+		return ExampleTopologyCommonTestUtils.getAlgorithmObject();
 	}
 
 	private AlgorithmNode createAlgorithmRecord4(){
-		return ExampleTopologyCommonTestUtils.getAnalyticDefinationObject2();
+		return ExampleTopologyCommonTestUtils.getAlgorithmObject2();
 	}
 
 	private AlgorithmNode createAlgorithmRecord2(){
-		return ExampleTopologyCommonTestUtils.getAnalyticDefinationObject3();
+		return ExampleTopologyCommonTestUtils.getAlgorithmObject3();
 	}
 
 	private AlgorithmNode createAlgorithmRecord3(){
-		return ExampleTopologyCommonTestUtils.getAnalyticDefinationObject4();
+		return ExampleTopologyCommonTestUtils.getAlgorithmObject4();
 	}
 
 }

@@ -108,12 +108,12 @@ public class GraphBoltTest{
 	@Test
 	public void testExecuteDatasource() throws ExampleTopologyException{
 		logger.info("Running testExecuteDatasource...");
-		DataNode record = ExampleTopologyCommonTestUtils.createDataSourcenRecord();
+		DataNode record = ExampleTopologyCommonTestUtils.createDataRecord();
 
 		// mocking
 		Tuple input = mock(Tuple.class);
 		when(input.getSourceStreamId()).thenReturn(ExampleTopologyUtils.DATASTREAM);
-		when(input.getValueByField("content")).thenReturn(ExampleTopologyCommonTestUtils.createDataSourcenRecord());
+		when(input.getValueByField("content")).thenReturn(ExampleTopologyCommonTestUtils.createDataRecord());
 		when(datasourceGraph.makeVertex(record, graph, graphIndex)).thenReturn(12345678L);
 
 		// call the method
@@ -132,8 +132,8 @@ public class GraphBoltTest{
 		// mocking
 		Tuple input = mock(Tuple.class);
 		when(input.getSourceStreamId()).thenReturn(ExampleTopologyUtils.DATASTREAM);
-		when(input.getValueByField("content")).thenReturn(ExampleTopologyCommonTestUtils.createDataSourcenRecord());
-		when(datasourceGraph.makeVertex(ExampleTopologyCommonTestUtils.createDataSourcenRecord(), graph, graphIndex))
+		when(input.getValueByField("content")).thenReturn(ExampleTopologyCommonTestUtils.createDataRecord());
+		when(datasourceGraph.makeVertex(ExampleTopologyCommonTestUtils.createDataRecord(), graph, graphIndex))
 				.thenThrow(ExampleTopologyException.class);
 
 		// call the method
@@ -151,8 +151,8 @@ public class GraphBoltTest{
 		// mocking
 		Tuple input = mock(Tuple.class);
 		when(input.getSourceStreamId()).thenReturn(ExampleTopologyUtils.ALGORITHMSTREAM);
-		when(input.getValueByField("content")).thenReturn(ExampleTopologyCommonTestUtils.getAnalyticDefinationObject());
-		when(analyticGraph.makeVertex(ExampleTopologyCommonTestUtils.getAnalyticDefinationObject(), graph, graphIndex))
+		when(input.getValueByField("content")).thenReturn(ExampleTopologyCommonTestUtils.getAlgorithmObject());
+		when(analyticGraph.makeVertex(ExampleTopologyCommonTestUtils.getAlgorithmObject(), graph, graphIndex))
 				.thenReturn(837259348L);
 
 		// call the method
@@ -171,8 +171,8 @@ public class GraphBoltTest{
 		// mocking
 		Tuple input = mock(Tuple.class);
 		when(input.getSourceStreamId()).thenReturn(ExampleTopologyUtils.ALGORITHMSTREAM);
-		when(input.getValueByField("content")).thenReturn(ExampleTopologyCommonTestUtils.getAnalyticDefinationObject());
-		when(analyticGraph.makeVertex(ExampleTopologyCommonTestUtils.getAnalyticDefinationObject(), graph, graphIndex))
+		when(input.getValueByField("content")).thenReturn(ExampleTopologyCommonTestUtils.getAlgorithmObject());
+		when(analyticGraph.makeVertex(ExampleTopologyCommonTestUtils.getAlgorithmObject(), graph, graphIndex))
 				.thenThrow(ExampleTopologyException.class);
 
 		// call the method

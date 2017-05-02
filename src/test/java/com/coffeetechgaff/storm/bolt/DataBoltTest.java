@@ -85,13 +85,13 @@ public class DataBoltTest{
 	@Test
 	public void testExecute() throws IOException{
 		logger.info("Running testExecute...");
-		DataNode node = ExampleTopologyCommonTestUtils.createDataSourcenRecord();
+		DataNode node = ExampleTopologyCommonTestUtils.createDataRecord();
 
 		// mocking
 		Tuple input = mock(Tuple.class);
 		when(input.getBinary(0)).thenReturn(
-				ExampleTopologyCommonTestUtils.serialize(ExampleTopologyCommonTestUtils.createDataSourcenRecord()));
-		when(reader.read(any(), any())).thenReturn(ExampleTopologyCommonTestUtils.createDataSourcenRecord());
+				ExampleTopologyCommonTestUtils.serialize(ExampleTopologyCommonTestUtils.createDataRecord()));
+		when(reader.read(any(), any())).thenReturn(ExampleTopologyCommonTestUtils.createDataRecord());
 
 		// calling method
 		dataBolt.execute(input);
@@ -107,7 +107,7 @@ public class DataBoltTest{
 	public void testExecuteNull() throws IOException{
 		logger.info("Running testExecuteNull...");
 
-		byte[] message = ExampleTopologyCommonTestUtils.serialize(ExampleTopologyCommonTestUtils.createDataSourcenRecord());
+		byte[] message = ExampleTopologyCommonTestUtils.serialize(ExampleTopologyCommonTestUtils.createDataRecord());
 
 		// mocking
 		Tuple input = mock(Tuple.class);
@@ -141,7 +141,7 @@ public class DataBoltTest{
 	public void testDeserialize() throws IOException{
 		logger.info("Running testDeserialize...");
 
-		byte[] message = ExampleTopologyCommonTestUtils.serialize(ExampleTopologyCommonTestUtils.createDataSourcenRecord());
+		byte[] message = ExampleTopologyCommonTestUtils.serialize(ExampleTopologyCommonTestUtils.createDataRecord());
 
 		// injecting expected behavior
 		when(reader.read(any(), any())).thenThrow(IOException.class);

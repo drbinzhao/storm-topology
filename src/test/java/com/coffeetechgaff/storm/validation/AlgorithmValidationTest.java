@@ -36,7 +36,7 @@ public class AlgorithmValidationTest{
 	@Test
 	public void validateAnalyticTest(){
 		logger.info("Start validateAnalyticTest");
-		ad = ExampleTopologyCommonTestUtils.getAnalyticDefinationObject();
+		ad = ExampleTopologyCommonTestUtils.getAlgorithmObject();
 		ad.setUid(null);
 		logger.info("test AlgorithmNode uid");
 		Map<String, String> ad1 = algorithmValidation.validateAnalytic(ad);
@@ -113,7 +113,7 @@ public class AlgorithmValidationTest{
 	public void testEmptyInputOutputParameters(){
 		logger.info("Running testEmptyInputOutputParameters...");
 
-		AlgorithmNode ad = ExampleTopologyCommonTestUtils.getAnalyticDefinationObject();
+		AlgorithmNode ad = ExampleTopologyCommonTestUtils.getAlgorithmObject();
 
 		logger.info("test AlgorithmNode input with empty array");
 		AlgorithmNode ad8 = ad;

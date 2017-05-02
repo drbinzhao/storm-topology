@@ -58,7 +58,7 @@ public class ExampleTopologyCommonTestUtils{
 	 * 
 	 * @return an object of @DataSourceNodeRecord
 	 */
-	public static DataNode createDataSourcenRecord(){
+	public static DataNode createDataRecord(){
 		DataNode node = new DataNode();
 		node.setClassification(null);
 		node.setName("Geometry");
@@ -88,7 +88,7 @@ public class ExampleTopologyCommonTestUtils{
 		return commonProperties;
 	}
 
-	public static AlgorithmNode getAnalyticDefinationObject(){
+	public static AlgorithmNode getAlgorithmObject(){
 		AlgorithmNode ad = new AlgorithmNode();
 		List<NodeConfig> inputList = new ArrayList<>();
 		NodeConfig sc = new NodeConfig();
@@ -143,7 +143,7 @@ public class ExampleTopologyCommonTestUtils{
 		return ad;
 	}
 
-	public static AlgorithmNode getAnalyticDefinationObject2(){
+	public static AlgorithmNode getAlgorithmObject2(){
 		AlgorithmNode ad = new AlgorithmNode();
 		List<NodeConfig> inputList = new ArrayList<>();
 		NodeConfig sc = new NodeConfig();
@@ -198,7 +198,7 @@ public class ExampleTopologyCommonTestUtils{
 		return ad;
 	}
 
-	public static AlgorithmNode getAnalyticDefinationObject3(){
+	public static AlgorithmNode getAlgorithmObject3(){
 		AlgorithmNode ad = new AlgorithmNode();
 		List<NodeConfig> inputList = new ArrayList<>();
 		NodeConfig sc = new NodeConfig();
@@ -253,7 +253,7 @@ public class ExampleTopologyCommonTestUtils{
 		return ad;
 	}
 
-	public static AlgorithmNode getAnalyticDefinationObject4(){
+	public static AlgorithmNode getAlgorithmObject4(){
 		AlgorithmNode ad = new AlgorithmNode();
 		List<NodeConfig> inputList = new ArrayList<>();
 		NodeConfig sc = new NodeConfig();

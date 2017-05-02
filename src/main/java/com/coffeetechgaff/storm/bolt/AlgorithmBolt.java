@@ -21,7 +21,7 @@ import com.coffeetechgaff.storm.algorithmnode.AlgorithmNode;
 import com.coffeetechgaff.storm.utils.ExampleTopologyUtils;
 
 /**
- * The bolt consumes message that is send from KafaSpout and deserialize to @AlgorithNode
+ * The bolt consumes message that is send from KafaSpout and deserialize to @AlgorithmNode
  * and emits the newly created object to analytic-stream so that GraphBolt can
  * pick it up for further processing
  * 
@@ -65,9 +65,9 @@ public class AlgorithmBolt extends BaseRichBolt{
 			Decoder decoder = DecoderFactory.get().binaryDecoder(message, null);
 			/**
 			 * We don't have to check if the read object is instance of
-			 * AlgorithNode or not because read variable know that we are
-			 * reading the byte of AlgorithNode. If serialized object is
-			 * other than AlgorithNode, read.write throws the IOException.
+			 * @AlgorithmNode or not because read variable know that we are
+			 * reading the byte of @AlgorithmNode. If serialized object is
+			 * other than @AlgorithmNode, read.write throws the IOException.
 			 */
 			analytic = reader.read(null, decoder);
 		}catch(IOException | RuntimeException e){
