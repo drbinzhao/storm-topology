@@ -99,7 +99,7 @@ public class AlgorithmBoltTest{
 
 		// Here we just verify a call.
 		verify(algorithmBolt, times(1)).execute(input);
-		verify(collector).emit(ExampleTopologyUtils.ANALYTICSTREAM,
+		verify(collector).emit(ExampleTopologyUtils.ALGORITHMSTREAM,
 				new Values(ExampleTopologyCommonTestUtils.getAnalyticDefinationObject()));
 		verify(collector).ack(input);
 	}

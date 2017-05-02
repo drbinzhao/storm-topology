@@ -38,55 +38,55 @@ public class AlgorithmValidationTest{
 		logger.info("Start validateAnalyticTest");
 		ad = ExampleTopologyCommonTestUtils.getAnalyticDefinationObject();
 		ad.setUid(null);
-		logger.info("test AnalyticNode uid");
+		logger.info("test AlgorithmNode uid");
 		Map<String, String> ad1 = algorithmValidation.validateAnalytic(ad);
 		assertFalse(ad1.containsKey("id"));
 
-		logger.info("test AnalyticNode name");
+		logger.info("test AlgorithmNode name");
 		ad.setName(null);
 		Map<String, String> ad2 = algorithmValidation.validateAnalytic(ad);
 		assertFalse(ad2.containsKey("name"));
 
-		logger.info("test AnalyticNode description");
+		logger.info("test AlgorithmNode description");
 		ad.setDescription(null);
 		Map<String, String> ad3 = algorithmValidation.validateAnalytic(ad);
 		assertFalse(ad3.containsKey("description"));
 
-		logger.info("test AnalyticNode author");
+		logger.info("test AlgorithmNode author");
 		ad.setAuthor(null);
 		Map<String, String> ad4 = algorithmValidation.validateAnalytic(ad);
 		assertFalse(ad4.containsKey("author"));
 
-		logger.info("test AnalyticNode email");
+		logger.info("test AlgorithmNode email");
 		ad.setEmail(null);
 		Map<String, String> ad5 = algorithmValidation.validateAnalytic(ad);
 		assertFalse(ad5.containsKey("email"));
 
-		logger.info("test AnalyticNode version");
+		logger.info("test AlgorithmNode version");
 		ad.setVersion(null);
 		Map<String, String> ad6 = algorithmValidation.validateAnalytic(ad);
 		assertFalse(ad6.containsKey("version"));
 
-		logger.info("test AnalyticNode input");
+		logger.info("test AlgorithmNode input");
 		ad.getInput().get(0).setName(null);
 		ad.getInput().get(0).setType(null);
 		Map<String, String> ad7 = algorithmValidation.validateAnalytic(ad);
 		assertTrue(ad7.containsKey("input"));
 		assertTrue(ad7.get("input").toString().contains("example2"));
 
-		logger.info("test AnalyticNode input again");
+		logger.info("test AlgorithmNode input again");
 		ad.getInput().get(1).setName(null);
 		ad.getInput().get(1).setType(null);
 		Map<String, String> ad8 = algorithmValidation.validateAnalytic(ad);
 		assertFalse(ad8.containsKey("input"));
 
-		logger.info("test AnalyticNode output");
+		logger.info("test AlgorithmNode output");
 		ad.getOutput().get(0).setName(null);
 		ad.getOutput().get(0).setType(null);
 		Map<String, String> ad9 = algorithmValidation.validateAnalytic(ad);
 		assertFalse(ad9.containsKey("output"));
 
-		logger.info("test AnalyticNode Parameter");
+		logger.info("test AlgorithmNode Parameter");
 		AlgorithmNode ad10 = ad;
 		ad.getParameters().get(1).setDefaultValue(null);
 		ad.getParameters().get(1).setName(null);
@@ -98,7 +98,7 @@ public class AlgorithmValidationTest{
 		assertTrue(ad11.containsKey("parameters"));
 		assertTrue(ad11.get("parameters").toString().contains("counting analytics"));
 
-		logger.info("test AnalyticNode Parameter again");
+		logger.info("test AlgorithmNode Parameter again");
 		ad10.getParameters().get(0).setDefaultValue(null);
 		ad10.getParameters().get(0).setName(null);
 		ad10.getParameters().get(0).setDescription(null);
@@ -115,35 +115,35 @@ public class AlgorithmValidationTest{
 
 		AlgorithmNode ad = ExampleTopologyCommonTestUtils.getAnalyticDefinationObject();
 
-		logger.info("test AnalyticNode input with empty array");
+		logger.info("test AlgorithmNode input with empty array");
 		AlgorithmNode ad8 = ad;
 		ad8.setInput(new ArrayList<>());
 		Map<String, String> ad1 = algorithmValidation.validateAnalytic(ad);
 		assertFalse(ad1.containsKey("input"));
 
-		logger.info("test AnalyticNode input with null");
+		logger.info("test AlgorithmNode input with null");
 		ad8.setInput(null);
 		Map<String, String> ad2 = algorithmValidation.validateAnalytic(ad);
 		assertFalse(ad2.containsKey("input"));
 
-		logger.info("test AnalyticNode output with empty array");
+		logger.info("test AlgorithmNode output with empty array");
 		AlgorithmNode ad9 = ad;
 		ad9.setOutput(new ArrayList<>());
 		Map<String, String> ad3 = algorithmValidation.validateAnalytic(ad);
 		assertFalse(ad3.containsKey("output"));
 
-		logger.info("test AnalyticNode output with null");
+		logger.info("test AlgorithmNode output with null");
 		ad9.setOutput(null);
 		Map<String, String> ad4 = algorithmValidation.validateAnalytic(ad);
 		assertFalse(ad4.containsKey("output"));
 
-		logger.info("test AnalyticNode Parameter with empty array");
+		logger.info("test AlgorithmNode Parameter with empty array");
 		AlgorithmNode ad10 = ad;
 		ad10.setParameters(new ArrayList<>());
 		Map<String, String> ad5 = algorithmValidation.validateAnalytic(ad);
 		assertFalse(ad5.containsKey("parameters"));
 
-		logger.info("test AnalyticNode Parameter with null");
+		logger.info("test AlgorithmNode Parameter with null");
 		ad10.setParameters(null);
 		Map<String, String> ad6 = algorithmValidation.validateAnalytic(ad);
 		assertFalse(ad6.containsKey("parameters"));

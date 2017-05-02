@@ -21,8 +21,8 @@ import com.coffeetechgaff.storm.datanode.DataNode;
 import com.coffeetechgaff.storm.utils.ExampleTopologyUtils;
 
 /**
- * The bolt consumes message that is send from KafaSpout and deserialize to @DatasourceNodeRecord
- * and emits the newly created object to datasource-stream so that GraphBolt can
+ * The bolt consumes message that is send from KafaSpout and deserialize to @DataNode
+ * and emits the newly created object to data-stream so that GraphBolt can
  * pick it up for further processing
  * 
  * @author VivekSubedi
@@ -42,8 +42,8 @@ public class DataBolt extends BaseRichBolt{
 		byte[] value = tupple.getBinary(0);
 		DataNode dataSourceNode = deserialize(value);
 		if(dataSourceNode != null){
-			collector.emit(ExampleTopologyUtils.DATASOURCESTREAM, new Values(dataSourceNode));
-			logger.info("Emitted value under [{}] is [{}] and send to graph bolt", ExampleTopologyUtils.DATASOURCESTREAM,
+			collector.emit(ExampleTopologyUtils.DATASTREAM, new Values(dataSourceNode));
+			logger.info("Emitted value under [{}] is [{}] and send to graph bolt", ExampleTopologyUtils.DATASTREAM,
 					dataSourceNode);
 		}
 		collector.ack(tupple);
@@ -57,7 +57,7 @@ public class DataBolt extends BaseRichBolt{
 
 	@Override
 	public void declareOutputFields(OutputFieldsDeclarer declarer){
-		declarer.declareStream(ExampleTopologyUtils.DATASOURCESTREAM, new Fields(ExampleTopologyUtils.STORMCONTENT));
+		declarer.declareStream(ExampleTopologyUtils.DATASTREAM, new Fields(ExampleTopologyUtils.STORMCONTENT));
 	}
 
 	/**
@@ -76,9 +76,9 @@ public class DataBolt extends BaseRichBolt{
 
 			/**
 			 * We don't have to check if the read object is instance of
-			 * DataSourceNodeRecord or not because read variable know that we
-			 * are reading the byte of DataSoureNodeRecord. If serialized object
-			 * is other than DataSourceNodeRecord, read.write throws the
+			 * @DataNode or not because read variable know that we
+			 * are reading the byte of @DataNode. If serialized object
+			 * is other than @DataNode, read.write throws the
 			 * IOException.
 			 */
 			dataSourceNode = reader.read(null, decoder);

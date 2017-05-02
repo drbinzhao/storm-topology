@@ -44,14 +44,14 @@ public class DataGraphTest{
 
 	private static Logger logger = LoggerFactory.getLogger(DataGraphTest.class);
 
-	private static GraphVertex<DataNode> dataSourceGraph;
-	private static GraphVertex<AlgorithmNode> analyticsGraph;
+	private static GraphVertex<DataNode> dataGraph;
+	private static GraphVertex<AlgorithmNode> algorithmGraph;
 	private static CommonVertexCode commonVertexCode;
 	private static JanusGraphConnection graphConnection;
 	private static JanusGraph graph;
 	private static String graphIndex = "search";
 
-	// datasource vertex ID
+	// data vertex ID
 	private static long vertexId = 0l;
 	private static long vertexId2 = 0l;
 	private static long vertexId3 = 0l;
@@ -59,18 +59,18 @@ public class DataGraphTest{
 	private static long vertexId5 = 0l;
 	private static long vertexId6 = 0l;
 
-	// analytics vertex ID
-	private static long analyticsVertexId = 0l;
-	private static long analyticsVertexId2 = 0l;
-	private static long analyticsVertexId3 = 0l;
-	private static long analyticsVertexId4 = 0l;
+	// algorithm vertex ID
+	private static long algorithmVertexId = 0l;
+	private static long algorithmVertexId2 = 0l;
+	private static long algorithmVertexId3 = 0l;
+	private static long algorithmVertexId4 = 0l;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception{
-		dataSourceGraph = new DataVertexCreator();
+		dataGraph = new DataVertexCreator();
 		commonVertexCode = new CommonVertexCode();
 		graphConnection = new JanusGraphConnection();
-		analyticsGraph = new AlgorithmVertexCreator();
+		algorithmGraph = new AlgorithmVertexCreator();
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("storage.backend", "inmemory");
@@ -81,7 +81,7 @@ public class DataGraphTest{
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception{
-		dataSourceGraph = null;
+		dataGraph = null;
 		graphConnection = null;
 		commonVertexCode.closeGraph(graph);
 		commonVertexCode = null;
@@ -90,73 +90,73 @@ public class DataGraphTest{
 	@Test(expected = ObjectIsNullException.class)
 	public void testNullObjects() throws ExampleTopologyException{
 		logger.info("Running testNullObjects...");
-		dataSourceGraph.makeVertex(null, graph, graphIndex);
+		dataGraph.makeVertex(null, graph, graphIndex);
 	}
 
 	@Test(expected = ObjectIsNullException.class)
 	public void testNullGraphObjects() throws ExampleTopologyException{
 		logger.info("Running testNullGraphObjects...");
-		dataSourceGraph.makeVertex(createDataSourceRecord1(), null, graphIndex);
+		dataGraph.makeVertex(createDataRecord1(), null, graphIndex);
 	}
 
 	@Test(expected = ObjectIsNullException.class)
 	public void testNullIndexObjects() throws ExampleTopologyException{
 		logger.info("Running testNullIndexObjects...");
-		dataSourceGraph.makeVertex(createDataSourceRecord1(), graph, null);
+		dataGraph.makeVertex(createDataRecord1(), graph, null);
 	}
 
 	@Test
 	public void createVertexes() throws ExampleTopologyException{
 		logger.info("Running createVertexes...");
-		// create first analytics vertex
-		analyticsVertexId = analyticsGraph.makeVertex(createAnalyticsRecord1(), graph, graphIndex);
-		assertNotEquals(0l, analyticsVertexId);
-		logger.info("Analytics 1 [{}]", analyticsVertexId);
+		// create first algorithm vertex
+		algorithmVertexId = algorithmGraph.makeVertex(createAlgorithmRecord1(), graph, graphIndex);
+		assertNotEquals(0l, algorithmVertexId);
+		logger.info("algorithm 1 [{}]", algorithmVertexId);
 
-		// create second analytics vertex
-		analyticsVertexId2 = analyticsGraph.makeVertex(createAnalyticsRecord2(), graph, graphIndex);
-		assertNotEquals(0l, analyticsVertexId2);
-		logger.info("Analytics 2 [{}]", analyticsVertexId2);
+		// create second algorithm vertex
+		algorithmVertexId2 = algorithmGraph.makeVertex(createAlgorithmRecord2(), graph, graphIndex);
+		assertNotEquals(0l, algorithmVertexId2);
+		logger.info("algorithm 2 [{}]", algorithmVertexId2);
 
-		// create second analytics vertex
-		analyticsVertexId3 = analyticsGraph.makeVertex(createAnalyticsRecord3(), graph, graphIndex);
-		assertNotEquals(0l, analyticsVertexId3);
-		logger.info("Analytics 3 [{}]", analyticsVertexId3);
+		// create second algorithm vertex
+		algorithmVertexId3 = algorithmGraph.makeVertex(createAlgorithmRecord3(), graph, graphIndex);
+		assertNotEquals(0l, algorithmVertexId3);
+		logger.info("algorithm 3 [{}]", algorithmVertexId3);
 
-		analyticsVertexId4 = analyticsGraph.makeVertex(createAnalyticsRecord4(), graph, graphIndex);
-		assertNotEquals(0l, analyticsVertexId4);
-		logger.info("Analytics 3 [{}]", analyticsVertexId4);
+		algorithmVertexId4 = algorithmGraph.makeVertex(createAlgorithmRecord4(), graph, graphIndex);
+		assertNotEquals(0l, algorithmVertexId4);
+		logger.info("algorithm 3 [{}]", algorithmVertexId4);
 
 		// first
-		vertexId = dataSourceGraph.makeVertex(createDataSourceRecord1(), graph, graphIndex);
+		vertexId = dataGraph.makeVertex(createDataRecord1(), graph, graphIndex);
 		assertNotEquals(0l, vertexId);
-		logger.info("Datasource 1 [{}]", vertexId);
+		logger.info("Data 1 [{}]", vertexId);
 
 		// second
-		vertexId2 = dataSourceGraph.makeVertex(createDataSourceRecord2(), graph, graphIndex);
-		logger.info("Datasource 2 [{}]", vertexId2);
+		vertexId2 = dataGraph.makeVertex(createDataRecord2(), graph, graphIndex);
+		logger.info("Data 2 [{}]", vertexId2);
 		assertNotEquals(0l, vertexId2);
 
 		// third
-		vertexId3 = dataSourceGraph.makeVertex(createDataSourceRecord3(), graph, graphIndex);
-		logger.info("Datasource 3 [{}]", vertexId3);
+		vertexId3 = dataGraph.makeVertex(createDataRecord3(), graph, graphIndex);
+		logger.info("Data 3 [{}]", vertexId3);
 		assertNotEquals(0l, vertexId3);
 
 		// fourth
-		vertexId4 = dataSourceGraph.makeVertex(createDataSourceRecord4(), graph, graphIndex);
-		logger.info("Datasource 4 [{}]", vertexId4);
+		vertexId4 = dataGraph.makeVertex(createDataRecord4(), graph, graphIndex);
+		logger.info("Data 4 [{}]", vertexId4);
 		assertNotEquals(0l, vertexId4);
 
-		DataNode ds = createDataSourceRecord4();
+		DataNode ds = createDataRecord4();
 		ds.setDataTypes(null);
-		vertexId5 = dataSourceGraph.makeVertex(ds, graph, graphIndex);
+		vertexId5 = dataGraph.makeVertex(ds, graph, graphIndex);
 		assertNotEquals(0l, vertexId5);
-		logger.info("Datasource 5 [{}]", vertexId5);
+		logger.info("Data 5 [{}]", vertexId5);
 
 		ds.setDataTypes(new ArrayList<>());
-		vertexId6 = dataSourceGraph.makeVertex(ds, graph, graphIndex);
+		vertexId6 = dataGraph.makeVertex(ds, graph, graphIndex);
 		assertNotEquals(0l, vertexId6);
-		logger.info("Datasource 6 [{}]", vertexId6);
+		logger.info("Data 6 [{}]", vertexId6);
 	}
 
 	@Test
@@ -180,15 +180,15 @@ public class DataGraphTest{
 		List<Vertex> readVertexId6 = commonVertexCode.getVertexId(vertexId6, graph);
 		assertEquals(vertexId6, readVertexId6.get(0).id());
 
-		// analytics
-		List<Vertex> readVertexAnalyticsId1 = commonVertexCode.getVertexId(analyticsVertexId, graph);
-		assertEquals(analyticsVertexId, readVertexAnalyticsId1.get(0).id());
+		// algorithm
+		List<Vertex> readVertexalgorithmId1 = commonVertexCode.getVertexId(algorithmVertexId, graph);
+		assertEquals(algorithmVertexId, readVertexalgorithmId1.get(0).id());
 
-		List<Vertex> readVertexAnalyticsId2 = commonVertexCode.getVertexId(analyticsVertexId2, graph);
-		assertEquals(analyticsVertexId2, readVertexAnalyticsId2.get(0).id());
+		List<Vertex> readVertexalgorithmId2 = commonVertexCode.getVertexId(algorithmVertexId2, graph);
+		assertEquals(algorithmVertexId2, readVertexalgorithmId2.get(0).id());
 
-		List<Vertex> readVertexAnalyticsId3 = commonVertexCode.getVertexId(analyticsVertexId3, graph);
-		assertEquals(analyticsVertexId3, readVertexAnalyticsId3.get(0).id());
+		List<Vertex> readVertexalgorithmId3 = commonVertexCode.getVertexId(algorithmVertexId3, graph);
+		assertEquals(algorithmVertexId3, readVertexalgorithmId3.get(0).id());
 	}
 
 	@Test
@@ -213,13 +213,13 @@ public class DataGraphTest{
 		List<Vertex> outGoingVertexId6 = commonVertexCode.getOutGoingToVertices(vertexId6, graph);
 		assertEquals(0, outGoingVertexId6.size());
 
-		List<Vertex> outGoingAnalyticVertexIds = commonVertexCode.getOutGoingToVertices(analyticsVertexId, graph);
+		List<Vertex> outGoingAnalyticVertexIds = commonVertexCode.getOutGoingToVertices(algorithmVertexId, graph);
 		assertEquals(2, outGoingAnalyticVertexIds.size());
-		List<Vertex> outGoingAnalyticVertexIds2 = commonVertexCode.getOutGoingToVertices(analyticsVertexId2, graph);
+		List<Vertex> outGoingAnalyticVertexIds2 = commonVertexCode.getOutGoingToVertices(algorithmVertexId2, graph);
 		assertEquals(2, outGoingAnalyticVertexIds2.size());
-		List<Vertex> outGoingAnalyticVertexIds3 = commonVertexCode.getOutGoingToVertices(analyticsVertexId3, graph);
+		List<Vertex> outGoingAnalyticVertexIds3 = commonVertexCode.getOutGoingToVertices(algorithmVertexId3, graph);
 		assertEquals(2, outGoingAnalyticVertexIds3.size());
-		List<Vertex> outGoingAnalyticVertexIds4 = commonVertexCode.getOutGoingToVertices(analyticsVertexId4, graph);
+		List<Vertex> outGoingAnalyticVertexIds4 = commonVertexCode.getOutGoingToVertices(algorithmVertexId4, graph);
 		assertEquals(2, outGoingAnalyticVertexIds4.size());
 	}
 
@@ -227,11 +227,11 @@ public class DataGraphTest{
 	public void updateVertices() throws ExampleTopologyException{
 		logger.info("Running updateVertices...");
 		// first
-		DataNode ds1 = createDataSourceRecord1();
+		DataNode ds1 = createDataRecord1();
 		ds1.setOperation(Operation.UPDATE);
 		ds1.setDescription("This is test1 update");
 		ds1.setDataTypes(Arrays.asList(new String[]{"com.coffeetechgaff.storm.algorithmnode.example"}));
-		long updatedVertexId1 = dataSourceGraph.makeVertex(ds1, graph, graphIndex);
+		long updatedVertexId1 = dataGraph.makeVertex(ds1, graph, graphIndex);
 		assertEquals(vertexId, updatedVertexId1);
 		List<Vertex> v1 = commonVertexCode.getVertexId(updatedVertexId1, graph);
 		assertEquals(1, v1.size());
@@ -243,21 +243,21 @@ public class DataGraphTest{
 		assertEquals(0, incomingVeretx.size());
 
 		// second
-		DataNode ds2 = createDataSourceRecord2();
+		DataNode ds2 = createDataRecord2();
 		ds2.setOperation(Operation.UPDATE);
 		ds2.setDescription("This is test2 update");
-		long updatedVertexId2 = dataSourceGraph.makeVertex(ds2, graph, graphIndex);
+		long updatedVertexId2 = dataGraph.makeVertex(ds2, graph, graphIndex);
 		assertEquals(vertexId2, updatedVertexId2);
 		List<Vertex> v2 = commonVertexCode.getVertexId(updatedVertexId2, graph);
 		assertEquals(1, v2.size());
 		assertEquals("This is test2 update", v2.get(0).value("description"));
 
 		// third
-		DataNode ds3 = createDataSourceRecord3();
+		DataNode ds3 = createDataRecord3();
 		ds3.setDataTypes(null);
 		ds3.setOperation(Operation.UPDATE);
 		ds3.setDescription("This is test3 update with null datatypes");
-		long updatedVertexId3 = dataSourceGraph.makeVertex(ds3, graph, graphIndex);
+		long updatedVertexId3 = dataGraph.makeVertex(ds3, graph, graphIndex);
 		logger.info("Dataosurce 3 [{}]", updatedVertexId3);
 		assertEquals(vertexId3, updatedVertexId3);
 		List<Vertex> v3 = commonVertexCode.getVertexId(updatedVertexId3, graph);
@@ -265,11 +265,11 @@ public class DataGraphTest{
 		assertEquals("This is test3 update with null datatypes", v3.get(0).value("description"));
 
 		// fourth
-		DataNode ds4 = createDataSourceRecord3();
+		DataNode ds4 = createDataRecord3();
 		ds4.setDataTypes(new ArrayList<>());
 		ds4.setOperation(Operation.UPDATE);
 		ds4.setDescription("This is test3 update without dataTypes");
-		long updatedVertexId4 = dataSourceGraph.makeVertex(ds4, graph, graphIndex);
+		long updatedVertexId4 = dataGraph.makeVertex(ds4, graph, graphIndex);
 		logger.info("Dataosurce 4 [{}]", updatedVertexId4);
 		assertEquals(vertexId3, updatedVertexId4);
 		List<Vertex> v4 = commonVertexCode.getVertexId(updatedVertexId4, graph);
@@ -279,9 +279,9 @@ public class DataGraphTest{
 
 	@Test
 	public void testOperationError() throws ExampleTopologyException{
-		DataNode ar = createDataSourceRecord1();
+		DataNode ar = createDataRecord1();
 		ar.setOperation(Operation.valueOf("WRONG"));
-		long wrongVertexId = dataSourceGraph.makeVertex(ar, graph, graphIndex);
+		long wrongVertexId = dataGraph.makeVertex(ar, graph, graphIndex);
 		assertEquals(0l, wrongVertexId);
 	}
 
@@ -289,21 +289,21 @@ public class DataGraphTest{
 	public void updateVerticesWithDeleteOparation() throws ExampleTopologyException{
 		logger.info("Running updateVerticesWithDeleteOparation...");
 		// first
-		DataNode ds1 = createDataSourceRecord1();
+		DataNode ds1 = createDataRecord1();
 		ds1.setOperation(Operation.DELETE);
-		long deletedVertexId1 = dataSourceGraph.makeVertex(ds1, graph, graphIndex);
+		long deletedVertexId1 = dataGraph.makeVertex(ds1, graph, graphIndex);
 		assertEquals(vertexId, deletedVertexId1);
 
 		// second
-		DataNode ds2 = createDataSourceRecord2();
+		DataNode ds2 = createDataRecord2();
 		ds2.setOperation(Operation.DELETE);
-		long deletedVertexId2 = dataSourceGraph.makeVertex(ds2, graph, graphIndex);
+		long deletedVertexId2 = dataGraph.makeVertex(ds2, graph, graphIndex);
 		assertEquals(vertexId2, deletedVertexId2);
 
 		// third
-		DataNode ds3 = createDataSourceRecord3();
+		DataNode ds3 = createDataRecord3();
 		ds3.setOperation(Operation.DELETE);
-		long deletedVertexId3 = dataSourceGraph.makeVertex(ds3, graph, graphIndex);
+		long deletedVertexId3 = dataGraph.makeVertex(ds3, graph, graphIndex);
 		assertEquals(vertexId3, deletedVertexId3);
 
 		// checking to make sure the vertices has been deleted
@@ -317,12 +317,12 @@ public class DataGraphTest{
 
 	@Test(expected = VertexNotFoundException.class)
 	public void updateVerticesThatDoesntExists() throws ExampleTopologyException{
-		DataNode ds5 = createDataSourceRecord3();
+		DataNode ds5 = createDataRecord3();
 		ds5.setId("4958734927");
 		ds5.setDataTypes(new ArrayList<>());
 		ds5.setOperation(Operation.UPDATE);
 		ds5.setDescription("This is test3 update without dataTypes");
-		dataSourceGraph.makeVertex(ds5, graph, graphIndex);
+		dataGraph.makeVertex(ds5, graph, graphIndex);
 	}
 
 	@Test(expected = ValidatedMapEmptyException.class)
@@ -332,13 +332,13 @@ public class DataGraphTest{
 		anr.setClassification("");
 		anr.setName("");
 		anr.setOperation(Operation.UPDATE);
-		dataSourceGraph.makeVertex(anr, graph, graphIndex);
+		dataGraph.makeVertex(anr, graph, graphIndex);
 	}
 
 	@Test(expected = ObjectIsNullException.class)
 	public void testCreateObjectisNull() throws ExampleTopologyException{
 		logger.info("Running testCreateObjectisNull...");
-		dataSourceGraph.createVertex(null);
+		dataGraph.createVertex(null);
 	}
 
 	@Test(expected = ValidatedMapEmptyException.class)
@@ -348,10 +348,10 @@ public class DataGraphTest{
 		anr.setClassification("");
 		anr.setName("");
 		anr.setOperation(Operation.CREATE);
-		dataSourceGraph.makeVertex(anr, graph, graphIndex);
+		dataGraph.makeVertex(anr, graph, graphIndex);
 	}
 
-	private DataNode createDataSourceRecord1(){
+	private DataNode createDataRecord1(){
 		DataNode node = new DataNode();
 		node.setClassification("unclassified");
 		node.setName("Geometry");
@@ -363,7 +363,7 @@ public class DataGraphTest{
 		return node;
 	}
 
-	private DataNode createDataSourceRecord2(){
+	private DataNode createDataRecord2(){
 		DataNode node = new DataNode();
 		node.setClassification("unclassified");
 		node.setName("Triangle");
@@ -375,7 +375,7 @@ public class DataGraphTest{
 		return node;
 	}
 
-	private DataNode createDataSourceRecord3(){
+	private DataNode createDataRecord3(){
 		DataNode node = new DataNode();
 		node.setClassification("unclassified");
 		node.setName("Rectangle");
@@ -387,7 +387,7 @@ public class DataGraphTest{
 		return node;
 	}
 
-	private DataNode createDataSourceRecord4(){
+	private DataNode createDataRecord4(){
 		DataNode node = new DataNode();
 		node.setClassification("unclassified");
 		node.setName("Hexagon");
@@ -399,19 +399,19 @@ public class DataGraphTest{
 		return node;
 	}
 
-	private AlgorithmNode createAnalyticsRecord1(){
+	private AlgorithmNode createAlgorithmRecord1(){
 		return ExampleTopologyCommonTestUtils.getAnalyticDefinationObject();
 	}
 
-	private AlgorithmNode createAnalyticsRecord4(){
+	private AlgorithmNode createAlgorithmRecord4(){
 		return ExampleTopologyCommonTestUtils.getAnalyticDefinationObject2();
 	}
 
-	private AlgorithmNode createAnalyticsRecord2(){
+	private AlgorithmNode createAlgorithmRecord2(){
 		return ExampleTopologyCommonTestUtils.getAnalyticDefinationObject3();
 	}
 
-	private AlgorithmNode createAnalyticsRecord3(){
+	private AlgorithmNode createAlgorithmRecord3(){
 		return ExampleTopologyCommonTestUtils.getAnalyticDefinationObject4();
 	}
 

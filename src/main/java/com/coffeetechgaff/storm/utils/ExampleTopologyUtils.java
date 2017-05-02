@@ -23,8 +23,8 @@ public class ExampleTopologyUtils{
 	public static final String KAFKAZOOKEEPER = "kafka.zookeeper";
 	public static final String KAFKAZKROOT = "kafka.zkRoot";
 	public static final String STORMCONTENT = "content";
-	public static final String ANALYTICTOPIC = "analytic.topic";
-	public static final String DATASOURCETOPIC = "datasource.topic";
+	public static final String ALGORITHMTOPIC = "algorithm.topic";
+	public static final String DATATOPIC = "data.topic";
 	public static final String STORAGEBACKEND = "storage.backend";
 	public static final String STORAGEHOSTNAME = "storage.backend.host";
 	public static final String INDEXSEARCHBACKEND = "index.search.backend";
@@ -40,15 +40,15 @@ public class ExampleTopologyUtils{
 	public static final String DBCACHESIZE = "db.cache.size";
 
 	// following are constant over the application
-	public static final String DATASOURCESTREAM = "datasource-stream";
-	public static final String ANALYTICSTREAM = "analytic-stream";
+	public static final String DATASTREAM = "data-stream";
+	public static final String ALGORITHMSTREAM = "algorithm-stream";
 
 	private ExampleTopologyUtils(){
 		// private constructor
 	}
 
 	public static List<String> getTopologyList(){
-		return Arrays.asList(new String[]{KAFKAZOOKEEPER, KAFKAZKROOT, ANALYTICTOPIC, DATASOURCETOPIC, STORAGEBACKEND,
+		return Arrays.asList(new String[]{KAFKAZOOKEEPER, KAFKAZKROOT, ALGORITHMTOPIC, DATATOPIC, STORAGEBACKEND,
 				STORAGEHOSTNAME, INDEXSEARCHBACKEND, INDEXSEARCHHOSTNAME, INDEXSEARCHCLIENTONLY, GRAPHINDEX,
 				SPOUTCOUNT, BOLTCOUNT, WORKERTHREAD, DBCACHE, DBCACHECLEANWAIT, DBCACHETIME, DBCACHESIZE});
 	}

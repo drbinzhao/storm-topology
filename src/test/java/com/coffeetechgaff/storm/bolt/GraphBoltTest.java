@@ -112,7 +112,7 @@ public class GraphBoltTest{
 
 		// mocking
 		Tuple input = mock(Tuple.class);
-		when(input.getSourceStreamId()).thenReturn(ExampleTopologyUtils.DATASOURCESTREAM);
+		when(input.getSourceStreamId()).thenReturn(ExampleTopologyUtils.DATASTREAM);
 		when(input.getValueByField("content")).thenReturn(ExampleTopologyCommonTestUtils.createDataSourcenRecord());
 		when(datasourceGraph.makeVertex(record, graph, graphIndex)).thenReturn(12345678L);
 
@@ -131,7 +131,7 @@ public class GraphBoltTest{
 
 		// mocking
 		Tuple input = mock(Tuple.class);
-		when(input.getSourceStreamId()).thenReturn(ExampleTopologyUtils.DATASOURCESTREAM);
+		when(input.getSourceStreamId()).thenReturn(ExampleTopologyUtils.DATASTREAM);
 		when(input.getValueByField("content")).thenReturn(ExampleTopologyCommonTestUtils.createDataSourcenRecord());
 		when(datasourceGraph.makeVertex(ExampleTopologyCommonTestUtils.createDataSourcenRecord(), graph, graphIndex))
 				.thenThrow(ExampleTopologyException.class);
@@ -150,7 +150,7 @@ public class GraphBoltTest{
 
 		// mocking
 		Tuple input = mock(Tuple.class);
-		when(input.getSourceStreamId()).thenReturn(ExampleTopologyUtils.ANALYTICSTREAM);
+		when(input.getSourceStreamId()).thenReturn(ExampleTopologyUtils.ALGORITHMSTREAM);
 		when(input.getValueByField("content")).thenReturn(ExampleTopologyCommonTestUtils.getAnalyticDefinationObject());
 		when(analyticGraph.makeVertex(ExampleTopologyCommonTestUtils.getAnalyticDefinationObject(), graph, graphIndex))
 				.thenReturn(837259348L);
@@ -170,7 +170,7 @@ public class GraphBoltTest{
 
 		// mocking
 		Tuple input = mock(Tuple.class);
-		when(input.getSourceStreamId()).thenReturn(ExampleTopologyUtils.ANALYTICSTREAM);
+		when(input.getSourceStreamId()).thenReturn(ExampleTopologyUtils.ALGORITHMSTREAM);
 		when(input.getValueByField("content")).thenReturn(ExampleTopologyCommonTestUtils.getAnalyticDefinationObject());
 		when(analyticGraph.makeVertex(ExampleTopologyCommonTestUtils.getAnalyticDefinationObject(), graph, graphIndex))
 				.thenThrow(ExampleTopologyException.class);

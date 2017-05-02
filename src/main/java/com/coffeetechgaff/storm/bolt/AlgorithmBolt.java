@@ -21,7 +21,7 @@ import com.coffeetechgaff.storm.algorithmnode.AlgorithmNode;
 import com.coffeetechgaff.storm.utils.ExampleTopologyUtils;
 
 /**
- * The bolt consumes message that is send from KafaSpout and deserialize to @AnalyticNodeRecord
+ * The bolt consumes message that is send from KafaSpout and deserialize to @AlgorithNode
  * and emits the newly created object to analytic-stream so that GraphBolt can
  * pick it up for further processing
  * 
@@ -47,8 +47,8 @@ public class AlgorithmBolt extends BaseRichBolt{
 		byte[] value = input.getBinary(0);
 		AlgorithmNode analyticNode = deserialize(value);
 		if(analyticNode != null){
-			collector.emit(ExampleTopologyUtils.ANALYTICSTREAM, new Values(analyticNode));
-			logger.info("Emitted value under [{}] is [{}] and send to graph bolt", ExampleTopologyUtils.ANALYTICSTREAM,
+			collector.emit(ExampleTopologyUtils.ALGORITHMSTREAM, new Values(analyticNode));
+			logger.info("Emitted value under [{}] is [{}] and send to graph bolt", ExampleTopologyUtils.ALGORITHMSTREAM,
 					analyticNode);
 		}
 		collector.ack(input);
@@ -56,7 +56,7 @@ public class AlgorithmBolt extends BaseRichBolt{
 
 	@Override
 	public void declareOutputFields(OutputFieldsDeclarer declarer){
-		declarer.declareStream(ExampleTopologyUtils.ANALYTICSTREAM, new Fields(ExampleTopologyUtils.STORMCONTENT));
+		declarer.declareStream(ExampleTopologyUtils.ALGORITHMSTREAM, new Fields(ExampleTopologyUtils.STORMCONTENT));
 	}
 
 	public AlgorithmNode deserialize(byte[] message){
@@ -65,9 +65,9 @@ public class AlgorithmBolt extends BaseRichBolt{
 			Decoder decoder = DecoderFactory.get().binaryDecoder(message, null);
 			/**
 			 * We don't have to check if the read object is instance of
-			 * AnalyticNodeRecord or not because read variable know that we are
-			 * reading the byte of AnalyticNodeRecord. If serialized object is
-			 * other than AnalyticNodeRecord, read.write throws the IOException.
+			 * AlgorithNode or not because read variable know that we are
+			 * reading the byte of AlgorithNode. If serialized object is
+			 * other than AlgorithNode, read.write throws the IOException.
 			 */
 			analytic = reader.read(null, decoder);
 		}catch(IOException | RuntimeException e){

@@ -81,9 +81,9 @@ public class ExampleTopology{
 		logger.info("Configuration has been loaded from readis {}", config);
 
 		KafkaSpout datasourceSpout = topologyKafkaSpout.buildKafkaSpout(buildPropertyMap(config),
-				config.get(ExampleTopologyUtils.DATASOURCETOPIC).toString());
+				config.get(ExampleTopologyUtils.DATATOPIC).toString());
 		KafkaSpout analyticSpout = topologyKafkaSpout.buildKafkaSpout(buildPropertyMap(config),
-				config.get(ExampleTopologyUtils.ANALYTICTOPIC).toString());
+				config.get(ExampleTopologyUtils.ALGORITHMTOPIC).toString());
 
 		int spoutThreads = Integer.parseInt(config.get(ExampleTopologyUtils.SPOUTCOUNT).toString());
 		int boltThreads = Integer.parseInt(config.get(ExampleTopologyUtils.BOLTCOUNT).toString());
@@ -95,8 +95,8 @@ public class ExampleTopology{
 		topologyBuilder.setBolt(ANALYTICBOLTID, algorithmBolt, boltThreads).shuffleGrouping(KAFKAANALYTICSPOUTID);
 		topologyBuilder.setBolt(DATASOURCEBOLTID, dataBolt, boltThreads).shuffleGrouping(KAFKADATASOURCESPOUTID);
 		InputDeclarer<BoltDeclarer> boltDeclarer = topologyBuilder.setBolt(GRAPHBOLTID, graphBolt, boltThreads)
-				.shuffleGrouping(DATASOURCEBOLTID, ExampleTopologyUtils.DATASOURCESTREAM);
-		boltDeclarer.shuffleGrouping(ANALYTICBOLTID, ExampleTopologyUtils.ANALYTICSTREAM);
+				.shuffleGrouping(DATASOURCEBOLTID, ExampleTopologyUtils.DATASTREAM);
+		boltDeclarer.shuffleGrouping(ANALYTICBOLTID, ExampleTopologyUtils.ALGORITHMSTREAM);
 
 		/**
 		 * submitting storm topology to cluster

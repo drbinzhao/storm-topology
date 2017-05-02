@@ -36,10 +36,10 @@ public class ExampleTopologyCommonTestUtils{
 	public static final String GROUPID = "test";
 
 	/**
-	 * Serialized the @DataSourceNodeRecord using @SpecificDatumWriter
+	 * Serialized the @DataNode using @SpecificDatumWriter
 	 * 
 	 * @param record
-	 *            - @DataSourceNodeRecord
+	 *            - @DataNode
 	 * @return An array of bytes
 	 * @throws IOException
 	 */
@@ -77,7 +77,7 @@ public class ExampleTopologyCommonTestUtils{
 	 */
 	public static Properties loadCommonProperties(){
 		Properties commonProperties = new Properties();
-		commonProperties.put("topic", ExampleTopologyUtils.DATASOURCETOPIC);
+		commonProperties.put("topic", ExampleTopologyUtils.DATATOPIC);
 		commonProperties.put("bootstrap.servers", "127.0.0.1:9092");
 		commonProperties.put("client.type", "CONSUMER");
 		commonProperties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");

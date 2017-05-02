@@ -175,8 +175,8 @@ public class ExampleTopologyPowerMockitoTest{
 		config.put(Config.TOPOLOGY_BACKPRESSURE_ENABLE, false);
 		config.put(Config.TOPOLOGY_EXECUTOR_RECEIVE_BUFFER_SIZE, 16384);
 		config.put(Config.TOPOLOGY_EXECUTOR_SEND_BUFFER_SIZE, 16384);
-		config.put(ExampleTopologyUtils.ANALYTICTOPIC, "avroNode");
-		config.put(ExampleTopologyUtils.DATASOURCETOPIC, "datasources");
+		config.put(ExampleTopologyUtils.ALGORITHMTOPIC, "avroNode");
+		config.put(ExampleTopologyUtils.DATATOPIC, "datasources");
 		config.put(ExampleTopologyUtils.SPOUTCOUNT, "1");
 		config.put(ExampleTopologyUtils.BOLTCOUNT, "1");
 		config.put(ExampleTopologyUtils.WORKERTHREAD, "1");

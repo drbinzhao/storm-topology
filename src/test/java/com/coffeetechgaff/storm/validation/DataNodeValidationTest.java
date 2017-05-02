@@ -79,7 +79,7 @@ public class DataNodeValidationTest{
 	@Test
 	public void testNullDescription(){
 		DataNode record = new DataNode(Operation.CREATE, "101", createSampleList(),
-				"FCMS-Gold", null, "Unclassified", "Gold");
+				"test3", null, "Unclassified", "Gold");
 
 		logger.info("Running testNullDescription() ...");
 
@@ -95,7 +95,7 @@ public class DataNodeValidationTest{
 	@Test
 	public void testNullClassification(){
 		DataNode record = new DataNode(Operation.CREATE, "101", createSampleList(),
-				"FCMS-Gold", "The XZ-1 source.", null, "Gold");
+				"test1", "The XZ-1 source.", null, "Gold");
 
 		logger.info("Running testNullClassification() ...");
 
@@ -111,7 +111,7 @@ public class DataNodeValidationTest{
 	@Test
 	public void testNullMaturity(){
 		DataNode record = new DataNode(Operation.CREATE, "101", createSampleList(),
-				"FCMS-Gold", "The XZ-1 source.", "Unclassified", null);
+				"test2", "The XZ-1 source.", "Unclassified", null);
 
 		logger.info("Running testNullMaturity() ...");
 

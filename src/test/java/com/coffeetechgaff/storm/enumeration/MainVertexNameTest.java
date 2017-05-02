@@ -21,14 +21,14 @@ public class MainVertexNameTest{
 	public void testFromValue(){
 		logger.info("Running testFromValue...");
 		MainVertexName value = MainVertexName.fromValue("datasource");
-		assertEquals(MainVertexName.DATASOURCE, value);
+		assertEquals(MainVertexName.DATANODE, value);
 	}
 
 	@Test
 	public void tesWrongValue(){
 		logger.info("Running tesWrongValue...");
 		MainVertexName value = MainVertexName.fromValue("ANLYTIC");
-		assertNotEquals(MainVertexName.ANALYTIC, value);
+		assertNotEquals(MainVertexName.ALGORITHM, value);
 	}
 
 	@Test

@@ -174,7 +174,7 @@ public class DataVertexCreator extends CommonVertexCode implements GraphVertex<D
 		JanusGraphTransaction transaction = graph.newTransaction();
 
 		// creating a vertex properties
-		JanusGraphVertex vertex = transaction.addVertex(T.label, MainVertexName.DATASOURCE.getVertexLabelName());
+		JanusGraphVertex vertex = transaction.addVertex(T.label, MainVertexName.DATANODE.getVertexLabelName());
 		// looping through each key of map and updating vertex. This happens in
 		// memory
 		datasourceValidatedMap.forEach(vertex::property);
@@ -202,7 +202,7 @@ public class DataVertexCreator extends CommonVertexCode implements GraphVertex<D
 		logger.info("Looping through each data type and creating edge if analytic node exists for that datatype {}",
 				dataTypeList);
 		dataTypeList.forEach(dataType -> {
-			List<Vertex> allMatchVertices = g.V().hasLabel(MainVertexName.ANALYTIC.getVertexLabelName())
+			List<Vertex> allMatchVertices = g.V().hasLabel(MainVertexName.ALGORITHM.getVertexLabelName())
 					.has(attributeName, textContains(dataType)).toList();
 			logger.info("There are [{}] vertices that matches the datatype [{}] that we are looking for. They are: {}",
 					allMatchVertices.size(), dataType, allMatchVertices);

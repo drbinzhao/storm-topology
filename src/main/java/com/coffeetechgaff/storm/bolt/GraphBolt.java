@@ -59,7 +59,7 @@ public class GraphBolt extends BaseRichBolt{
 
 	@Override
 	public void execute(Tuple input){
-		if(ExampleTopologyUtils.DATASOURCESTREAM.equals(input.getSourceStreamId())){
+		if(ExampleTopologyUtils.DATASTREAM.equals(input.getSourceStreamId())){
 			DataNode record = (DataNode) input.getValueByField(ExampleTopologyUtils.STORMCONTENT);
 			logger.info("Writing datasource node to graph");
 			long vertexId;
@@ -70,7 +70,7 @@ public class GraphBolt extends BaseRichBolt{
 				logger.error("Something went wrong while processing datasource node record ", e);
 			}
 			collector.ack(input);
-		}else if(ExampleTopologyUtils.ANALYTICSTREAM.equals(input.getSourceStreamId())){
+		}else if(ExampleTopologyUtils.ALGORITHMSTREAM.equals(input.getSourceStreamId())){
 			AlgorithmNode record = (AlgorithmNode) input.getValueByField(ExampleTopologyUtils.STORMCONTENT);
 			logger.info("Writing analytic node to graph");
 			long vertexId;

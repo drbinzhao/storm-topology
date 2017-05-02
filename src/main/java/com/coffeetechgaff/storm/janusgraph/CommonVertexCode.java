@@ -127,8 +127,8 @@ public class CommonVertexCode{
 				mgmt.buildIndex(byAuthor, Vertex.class).addKey(author).buildCompositeIndex();
 
 				// defining vertices
-				mgmt.makeVertexLabel(MainVertexName.DATASOURCE.getVertexLabelName()).make();
-				mgmt.makeVertexLabel(MainVertexName.ANALYTIC.getVertexLabelName()).make();
+				mgmt.makeVertexLabel(MainVertexName.DATANODE.getVertexLabelName()).make();
+				mgmt.makeVertexLabel(MainVertexName.ALGORITHM.getVertexLabelName()).make();
 
 				// making edge label
 				mgmt.makeEdgeLabel(EdgeLabelEnums.WORKSWITH.getEdgeLabelName()).multiplicity(Multiplicity.MULTI).make();

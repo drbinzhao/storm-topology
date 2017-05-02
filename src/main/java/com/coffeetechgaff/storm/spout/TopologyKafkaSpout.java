@@ -9,7 +9,7 @@ import org.apache.storm.kafka.ZkHosts;
 import com.coffeetechgaff.storm.utils.ExampleTopologyUtils;
 
 /**
- * Common class for both datasource and analytic spouts
+ * Common class to create kafka spouts
  * 
  * spoutConfig.startOffsetTime = kafka.api.OffsetRequest.LatestTime();
  * spoutConfig.ignoreZkOffsets = true;

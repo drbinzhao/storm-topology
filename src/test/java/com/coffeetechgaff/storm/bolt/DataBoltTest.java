@@ -98,7 +98,7 @@ public class DataBoltTest{
 
 		// Here we just verify a call.
 		verify(dataBolt, times(1)).execute(input);
-		verify(collector).emit(ExampleTopologyUtils.DATASOURCESTREAM, new Values(node));
+		verify(collector).emit(ExampleTopologyUtils.DATASTREAM, new Values(node));
 		verify(collector).ack(input);
 	}
 

@@ -11,27 +11,27 @@ import org.apache.avro.specific.SpecificData;
 @org.apache.avro.specific.AvroGenerated
 public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
   private static final long serialVersionUID = 6004941741090085986L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"AlgorithmNode\",\"namespace\":\"com.coffeetechgaff.storm.algorithmnode\",\"fields\":[{\"name\":\"operation\",\"type\":{\"type\":\"enum\",\"name\":\"Operation\",\"symbols\":[\"CREATE\",\"UPDATE\",\"DELETE\",\"WRONG\"]},\"doc\":\"Indicates the operation for the analytic node.\"},{\"name\":\"uid\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Unique identifier for the Analytic\"},{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Name for the analytic, not necessarily unique.\"},{\"name\":\"status\",\"type\":{\"type\":\"enum\",\"name\":\"NodeStatus\",\"symbols\":[\"TESTING\",\"PRODUCTION\",\"RETIRED\"]},\"doc\":\"Indicates the development status of the analytic.\",\"default\":\"PRODUCTION\"},{\"name\":\"description\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Brief description of the purpose for the analytic.\"},{\"name\":\"author\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Author responsible for the analytic.\",\"default\":\"\"},{\"name\":\"email\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Contact email for the author of the analytic.\",\"default\":\"\"},{\"name\":\"version\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Version for the analytic.\",\"default\":\"\"},{\"name\":\"input\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"NodeConfig\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Name for the stream. Used for configuration purposes, not related to topic name.\"},{\"name\":\"type\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Stream type. Can be namespace scoped reference for a particular type, or could be a generic type indicator.\"}]}},\"doc\":\"Input source stream type of the analytic. Defined as array for future expansion.\"},{\"name\":\"output\",\"type\":{\"type\":\"array\",\"items\":\"NodeConfig\"},\"doc\":\"Output source stream type of the analytic. Defined as array for future expansion.\"},{\"name\":\"parameters\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"AlgorithmParameter\",\"fields\":[{\"name\":\"entity\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Unique name for the parameter, generally driven by the backing implementation.\"},{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"User visible name for the parameter.\"},{\"name\":\"description\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"User visible description for the parameter.\",\"default\":\"\"},{\"name\":\"type\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Value type, string, integer, double, datetime\",\"default\":\"string\"},{\"name\":\"defaultValue\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Default value, if any, for the parameter.\"},{\"name\":\"uiHint\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Hint for presentation of this parameter in the UI.\",\"default\":\"\"}]}}}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"AlgorithmNode\",\"namespace\":\"com.coffeetechgaff.storm.algorithmnode\",\"fields\":[{\"name\":\"operation\",\"type\":{\"type\":\"enum\",\"name\":\"Operation\",\"symbols\":[\"CREATE\",\"UPDATE\",\"DELETE\",\"WRONG\"]},\"doc\":\"Indicates the operation for the algorithm node.\"},{\"name\":\"uid\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Unique identifier for the algorithm\"},{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Name for the algorithm, not necessarily unique.\"},{\"name\":\"status\",\"type\":{\"type\":\"enum\",\"name\":\"NodeStatus\",\"symbols\":[\"TESTING\",\"PRODUCTION\",\"RETIRED\"]},\"doc\":\"Indicates the development status of the algorithm.\",\"default\":\"PRODUCTION\"},{\"name\":\"description\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Brief description of the purpose for the algorithm.\"},{\"name\":\"author\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Author responsible for the algorithm.\",\"default\":\"\"},{\"name\":\"email\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Contact email for the author of the algorithm.\",\"default\":\"\"},{\"name\":\"version\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Version for the algorithm.\",\"default\":\"\"},{\"name\":\"input\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"NodeConfig\",\"fields\":[{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Name for the stream. Used for configuration purposes, not related to topic name.\"},{\"name\":\"type\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Stream type. Can be namespace scoped reference for a particular type, or could be a generic type indicator.\"}]}},\"doc\":\"Input source stream type of the algorithm. Defined as array for future expansion.\"},{\"name\":\"output\",\"type\":{\"type\":\"array\",\"items\":\"NodeConfig\"},\"doc\":\"Output source stream type of the algorithm. Defined as array for future expansion.\"},{\"name\":\"parameters\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"AlgorithmParameter\",\"fields\":[{\"name\":\"entity\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Unique name for the parameter, generally driven by the backing implementation.\"},{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"User visible name for the parameter.\"},{\"name\":\"description\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"User visible description for the parameter.\",\"default\":\"\"},{\"name\":\"type\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Value type, string, integer, double, datetime\",\"default\":\"string\"},{\"name\":\"defaultValue\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Default value, if any, for the parameter.\"},{\"name\":\"uiHint\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Hint for presentation of this parameter in the UI.\",\"default\":\"\"}]}}}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
-  /** Indicates the operation for the analytic node. */
+  /** Indicates the operation for the algorithm node. */
   @Deprecated public com.coffeetechgaff.storm.algorithmnode.Operation operation;
-  /** Unique identifier for the Analytic */
+  /** Unique identifier for the algorithm */
   @Deprecated public java.lang.String uid;
-  /** Name for the analytic, not necessarily unique. */
+  /** Name for the algorithm, not necessarily unique. */
   @Deprecated public java.lang.String name;
-  /** Indicates the development status of the analytic. */
+  /** Indicates the development status of the algorithm. */
   @Deprecated public com.coffeetechgaff.storm.algorithmnode.NodeStatus status;
-  /** Brief description of the purpose for the analytic. */
+  /** Brief description of the purpose for the algorithm. */
   @Deprecated public java.lang.String description;
-  /** Author responsible for the analytic. */
+  /** Author responsible for the algorithm. */
   @Deprecated public java.lang.String author;
-  /** Contact email for the author of the analytic. */
+  /** Contact email for the author of the algorithm. */
   @Deprecated public java.lang.String email;
-  /** Version for the analytic. */
+  /** Version for the algorithm. */
   @Deprecated public java.lang.String version;
-  /** Input source stream type of the analytic. Defined as array for future expansion. */
+  /** Input source stream type of the algorithm. Defined as array for future expansion. */
   @Deprecated public java.util.List<com.coffeetechgaff.storm.algorithmnode.NodeConfig> input;
-  /** Output source stream type of the analytic. Defined as array for future expansion. */
+  /** Output source stream type of the algorithm. Defined as array for future expansion. */
   @Deprecated public java.util.List<com.coffeetechgaff.storm.algorithmnode.NodeConfig> output;
   @Deprecated public java.util.List<com.coffeetechgaff.storm.algorithmnode.AlgorithmParameter> parameters;
 
@@ -44,16 +44,16 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
   /**
    * All-args constructor.
-   * @param operation Indicates the operation for the analytic node.
-   * @param uid Unique identifier for the Analytic
-   * @param name Name for the analytic, not necessarily unique.
-   * @param status Indicates the development status of the analytic.
-   * @param description Brief description of the purpose for the analytic.
-   * @param author Author responsible for the analytic.
-   * @param email Contact email for the author of the analytic.
-   * @param version Version for the analytic.
-   * @param input Input source stream type of the analytic. Defined as array for future expansion.
-   * @param output Output source stream type of the analytic. Defined as array for future expansion.
+   * @param operation Indicates the operation for the algorithm node.
+   * @param uid Unique identifier for the algorithm
+   * @param name Name for the algorithm, not necessarily unique.
+   * @param status Indicates the development status of the algorithm.
+   * @param description Brief description of the purpose for the algorithm.
+   * @param author Author responsible for the algorithm.
+   * @param email Contact email for the author of the algorithm.
+   * @param version Version for the algorithm.
+   * @param input Input source stream type of the algorithm. Defined as array for future expansion.
+   * @param output Output source stream type of the algorithm. Defined as array for future expansion.
    * @param parameters The new value for parameters
    */
   public AlgorithmNode(com.coffeetechgaff.storm.algorithmnode.Operation operation, java.lang.String uid, java.lang.String name, com.coffeetechgaff.storm.algorithmnode.NodeStatus status, java.lang.String description, java.lang.String author, java.lang.String email, java.lang.String version, java.util.List<com.coffeetechgaff.storm.algorithmnode.NodeConfig> input, java.util.List<com.coffeetechgaff.storm.algorithmnode.NodeConfig> output, java.util.List<com.coffeetechgaff.storm.algorithmnode.AlgorithmParameter> parameters) {
@@ -110,7 +110,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
   /**
    * Gets the value of the 'operation' field.
-   * @return Indicates the operation for the analytic node.
+   * @return Indicates the operation for the algorithm node.
    */
   public com.coffeetechgaff.storm.algorithmnode.Operation getOperation() {
     return operation;
@@ -118,7 +118,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
   /**
    * Sets the value of the 'operation' field.
-   * Indicates the operation for the analytic node.
+   * Indicates the operation for the algorithm node.
    * @param value the value to set.
    */
   public void setOperation(com.coffeetechgaff.storm.algorithmnode.Operation value) {
@@ -127,7 +127,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
   /**
    * Gets the value of the 'uid' field.
-   * @return Unique identifier for the Analytic
+   * @return Unique identifier for the algorithm
    */
   public java.lang.String getUid() {
     return uid;
@@ -135,7 +135,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
   /**
    * Sets the value of the 'uid' field.
-   * Unique identifier for the Analytic
+   * Unique identifier for the algorithm
    * @param value the value to set.
    */
   public void setUid(java.lang.String value) {
@@ -144,7 +144,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
   /**
    * Gets the value of the 'name' field.
-   * @return Name for the analytic, not necessarily unique.
+   * @return Name for the algorithm, not necessarily unique.
    */
   public java.lang.String getName() {
     return name;
@@ -152,7 +152,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
   /**
    * Sets the value of the 'name' field.
-   * Name for the analytic, not necessarily unique.
+   * Name for the algorithm, not necessarily unique.
    * @param value the value to set.
    */
   public void setName(java.lang.String value) {
@@ -161,7 +161,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
   /**
    * Gets the value of the 'status' field.
-   * @return Indicates the development status of the analytic.
+   * @return Indicates the development status of the algorithm.
    */
   public com.coffeetechgaff.storm.algorithmnode.NodeStatus getStatus() {
     return status;
@@ -169,7 +169,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
   /**
    * Sets the value of the 'status' field.
-   * Indicates the development status of the analytic.
+   * Indicates the development status of the algorithm.
    * @param value the value to set.
    */
   public void setStatus(com.coffeetechgaff.storm.algorithmnode.NodeStatus value) {
@@ -178,7 +178,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
   /**
    * Gets the value of the 'description' field.
-   * @return Brief description of the purpose for the analytic.
+   * @return Brief description of the purpose for the algorithm.
    */
   public java.lang.String getDescription() {
     return description;
@@ -186,7 +186,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
   /**
    * Sets the value of the 'description' field.
-   * Brief description of the purpose for the analytic.
+   * Brief description of the purpose for the algorithm.
    * @param value the value to set.
    */
   public void setDescription(java.lang.String value) {
@@ -195,7 +195,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
   /**
    * Gets the value of the 'author' field.
-   * @return Author responsible for the analytic.
+   * @return Author responsible for the algorithm.
    */
   public java.lang.String getAuthor() {
     return author;
@@ -203,7 +203,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
   /**
    * Sets the value of the 'author' field.
-   * Author responsible for the analytic.
+   * Author responsible for the algorithm.
    * @param value the value to set.
    */
   public void setAuthor(java.lang.String value) {
@@ -212,7 +212,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
   /**
    * Gets the value of the 'email' field.
-   * @return Contact email for the author of the analytic.
+   * @return Contact email for the author of the algorithm.
    */
   public java.lang.String getEmail() {
     return email;
@@ -220,7 +220,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
   /**
    * Sets the value of the 'email' field.
-   * Contact email for the author of the analytic.
+   * Contact email for the author of the algorithm.
    * @param value the value to set.
    */
   public void setEmail(java.lang.String value) {
@@ -229,7 +229,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
   /**
    * Gets the value of the 'version' field.
-   * @return Version for the analytic.
+   * @return Version for the algorithm.
    */
   public java.lang.String getVersion() {
     return version;
@@ -237,7 +237,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
   /**
    * Sets the value of the 'version' field.
-   * Version for the analytic.
+   * Version for the algorithm.
    * @param value the value to set.
    */
   public void setVersion(java.lang.String value) {
@@ -246,7 +246,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
   /**
    * Gets the value of the 'input' field.
-   * @return Input source stream type of the analytic. Defined as array for future expansion.
+   * @return Input source stream type of the algorithm. Defined as array for future expansion.
    */
   public java.util.List<com.coffeetechgaff.storm.algorithmnode.NodeConfig> getInput() {
     return input;
@@ -254,7 +254,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
   /**
    * Sets the value of the 'input' field.
-   * Input source stream type of the analytic. Defined as array for future expansion.
+   * Input source stream type of the algorithm. Defined as array for future expansion.
    * @param value the value to set.
    */
   public void setInput(java.util.List<com.coffeetechgaff.storm.algorithmnode.NodeConfig> value) {
@@ -263,7 +263,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
   /**
    * Gets the value of the 'output' field.
-   * @return Output source stream type of the analytic. Defined as array for future expansion.
+   * @return Output source stream type of the algorithm. Defined as array for future expansion.
    */
   public java.util.List<com.coffeetechgaff.storm.algorithmnode.NodeConfig> getOutput() {
     return output;
@@ -271,7 +271,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
   /**
    * Sets the value of the 'output' field.
-   * Output source stream type of the analytic. Defined as array for future expansion.
+   * Output source stream type of the algorithm. Defined as array for future expansion.
    * @param value the value to set.
    */
   public void setOutput(java.util.List<com.coffeetechgaff.storm.algorithmnode.NodeConfig> value) {
@@ -326,25 +326,25 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
   public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<AlgorithmNode>
     implements org.apache.avro.data.RecordBuilder<AlgorithmNode> {
 
-    /** Indicates the operation for the analytic node. */
+    /** Indicates the operation for the algorithm node. */
     private com.coffeetechgaff.storm.algorithmnode.Operation operation;
-    /** Unique identifier for the Analytic */
+    /** Unique identifier for the algorithm */
     private java.lang.String uid;
-    /** Name for the analytic, not necessarily unique. */
+    /** Name for the algorithm, not necessarily unique. */
     private java.lang.String name;
-    /** Indicates the development status of the analytic. */
+    /** Indicates the development status of the algorithm. */
     private com.coffeetechgaff.storm.algorithmnode.NodeStatus status;
-    /** Brief description of the purpose for the analytic. */
+    /** Brief description of the purpose for the algorithm. */
     private java.lang.String description;
-    /** Author responsible for the analytic. */
+    /** Author responsible for the algorithm. */
     private java.lang.String author;
-    /** Contact email for the author of the analytic. */
+    /** Contact email for the author of the algorithm. */
     private java.lang.String email;
-    /** Version for the analytic. */
+    /** Version for the algorithm. */
     private java.lang.String version;
-    /** Input source stream type of the analytic. Defined as array for future expansion. */
+    /** Input source stream type of the algorithm. Defined as array for future expansion. */
     private java.util.List<com.coffeetechgaff.storm.algorithmnode.NodeConfig> input;
-    /** Output source stream type of the analytic. Defined as array for future expansion. */
+    /** Output source stream type of the algorithm. Defined as array for future expansion. */
     private java.util.List<com.coffeetechgaff.storm.algorithmnode.NodeConfig> output;
     private java.util.List<com.coffeetechgaff.storm.algorithmnode.AlgorithmParameter> parameters;
 
@@ -459,7 +459,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Gets the value of the 'operation' field.
-      * Indicates the operation for the analytic node.
+      * Indicates the operation for the algorithm node.
       * @return The value.
       */
     public com.coffeetechgaff.storm.algorithmnode.Operation getOperation() {
@@ -468,7 +468,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Sets the value of the 'operation' field.
-      * Indicates the operation for the analytic node.
+      * Indicates the operation for the algorithm node.
       * @param value The value of 'operation'.
       * @return This builder.
       */
@@ -481,7 +481,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Checks whether the 'operation' field has been set.
-      * Indicates the operation for the analytic node.
+      * Indicates the operation for the algorithm node.
       * @return True if the 'operation' field has been set, false otherwise.
       */
     public boolean hasOperation() {
@@ -491,7 +491,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Clears the value of the 'operation' field.
-      * Indicates the operation for the analytic node.
+      * Indicates the operation for the algorithm node.
       * @return This builder.
       */
     public com.coffeetechgaff.storm.algorithmnode.AlgorithmNode.Builder clearOperation() {
@@ -502,7 +502,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Gets the value of the 'uid' field.
-      * Unique identifier for the Analytic
+      * Unique identifier for the algorithm
       * @return The value.
       */
     public java.lang.String getUid() {
@@ -511,7 +511,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Sets the value of the 'uid' field.
-      * Unique identifier for the Analytic
+      * Unique identifier for the algorithm
       * @param value The value of 'uid'.
       * @return This builder.
       */
@@ -524,7 +524,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Checks whether the 'uid' field has been set.
-      * Unique identifier for the Analytic
+      * Unique identifier for the algorithm
       * @return True if the 'uid' field has been set, false otherwise.
       */
     public boolean hasUid() {
@@ -534,7 +534,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Clears the value of the 'uid' field.
-      * Unique identifier for the Analytic
+      * Unique identifier for the algorithm
       * @return This builder.
       */
     public com.coffeetechgaff.storm.algorithmnode.AlgorithmNode.Builder clearUid() {
@@ -545,7 +545,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Gets the value of the 'name' field.
-      * Name for the analytic, not necessarily unique.
+      * Name for the algorithm, not necessarily unique.
       * @return The value.
       */
     public java.lang.String getName() {
@@ -554,7 +554,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Sets the value of the 'name' field.
-      * Name for the analytic, not necessarily unique.
+      * Name for the algorithm, not necessarily unique.
       * @param value The value of 'name'.
       * @return This builder.
       */
@@ -567,7 +567,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Checks whether the 'name' field has been set.
-      * Name for the analytic, not necessarily unique.
+      * Name for the algorithm, not necessarily unique.
       * @return True if the 'name' field has been set, false otherwise.
       */
     public boolean hasName() {
@@ -577,7 +577,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Clears the value of the 'name' field.
-      * Name for the analytic, not necessarily unique.
+      * Name for the algorithm, not necessarily unique.
       * @return This builder.
       */
     public com.coffeetechgaff.storm.algorithmnode.AlgorithmNode.Builder clearName() {
@@ -588,7 +588,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Gets the value of the 'status' field.
-      * Indicates the development status of the analytic.
+      * Indicates the development status of the algorithm.
       * @return The value.
       */
     public com.coffeetechgaff.storm.algorithmnode.NodeStatus getStatus() {
@@ -597,7 +597,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Sets the value of the 'status' field.
-      * Indicates the development status of the analytic.
+      * Indicates the development status of the algorithm.
       * @param value The value of 'status'.
       * @return This builder.
       */
@@ -610,7 +610,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Checks whether the 'status' field has been set.
-      * Indicates the development status of the analytic.
+      * Indicates the development status of the algorithm.
       * @return True if the 'status' field has been set, false otherwise.
       */
     public boolean hasStatus() {
@@ -620,7 +620,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Clears the value of the 'status' field.
-      * Indicates the development status of the analytic.
+      * Indicates the development status of the algorithm.
       * @return This builder.
       */
     public com.coffeetechgaff.storm.algorithmnode.AlgorithmNode.Builder clearStatus() {
@@ -631,7 +631,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Gets the value of the 'description' field.
-      * Brief description of the purpose for the analytic.
+      * Brief description of the purpose for the algorithm.
       * @return The value.
       */
     public java.lang.String getDescription() {
@@ -640,7 +640,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Sets the value of the 'description' field.
-      * Brief description of the purpose for the analytic.
+      * Brief description of the purpose for the algorithm.
       * @param value The value of 'description'.
       * @return This builder.
       */
@@ -653,7 +653,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Checks whether the 'description' field has been set.
-      * Brief description of the purpose for the analytic.
+      * Brief description of the purpose for the algorithm.
       * @return True if the 'description' field has been set, false otherwise.
       */
     public boolean hasDescription() {
@@ -663,7 +663,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Clears the value of the 'description' field.
-      * Brief description of the purpose for the analytic.
+      * Brief description of the purpose for the algorithm.
       * @return This builder.
       */
     public com.coffeetechgaff.storm.algorithmnode.AlgorithmNode.Builder clearDescription() {
@@ -674,7 +674,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Gets the value of the 'author' field.
-      * Author responsible for the analytic.
+      * Author responsible for the algorithm.
       * @return The value.
       */
     public java.lang.String getAuthor() {
@@ -683,7 +683,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Sets the value of the 'author' field.
-      * Author responsible for the analytic.
+      * Author responsible for the algorithm.
       * @param value The value of 'author'.
       * @return This builder.
       */
@@ -696,7 +696,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Checks whether the 'author' field has been set.
-      * Author responsible for the analytic.
+      * Author responsible for the algorithm.
       * @return True if the 'author' field has been set, false otherwise.
       */
     public boolean hasAuthor() {
@@ -706,7 +706,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Clears the value of the 'author' field.
-      * Author responsible for the analytic.
+      * Author responsible for the algorithm.
       * @return This builder.
       */
     public com.coffeetechgaff.storm.algorithmnode.AlgorithmNode.Builder clearAuthor() {
@@ -717,7 +717,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Gets the value of the 'email' field.
-      * Contact email for the author of the analytic.
+      * Contact email for the author of the algorithm.
       * @return The value.
       */
     public java.lang.String getEmail() {
@@ -726,7 +726,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Sets the value of the 'email' field.
-      * Contact email for the author of the analytic.
+      * Contact email for the author of the algorithm.
       * @param value The value of 'email'.
       * @return This builder.
       */
@@ -739,7 +739,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Checks whether the 'email' field has been set.
-      * Contact email for the author of the analytic.
+      * Contact email for the author of the algorithm.
       * @return True if the 'email' field has been set, false otherwise.
       */
     public boolean hasEmail() {
@@ -749,7 +749,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Clears the value of the 'email' field.
-      * Contact email for the author of the analytic.
+      * Contact email for the author of the algorithm.
       * @return This builder.
       */
     public com.coffeetechgaff.storm.algorithmnode.AlgorithmNode.Builder clearEmail() {
@@ -760,7 +760,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Gets the value of the 'version' field.
-      * Version for the analytic.
+      * Version for the algorithm.
       * @return The value.
       */
     public java.lang.String getVersion() {
@@ -769,7 +769,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Sets the value of the 'version' field.
-      * Version for the analytic.
+      * Version for the algorithm.
       * @param value The value of 'version'.
       * @return This builder.
       */
@@ -782,7 +782,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Checks whether the 'version' field has been set.
-      * Version for the analytic.
+      * Version for the algorithm.
       * @return True if the 'version' field has been set, false otherwise.
       */
     public boolean hasVersion() {
@@ -792,7 +792,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Clears the value of the 'version' field.
-      * Version for the analytic.
+      * Version for the algorithm.
       * @return This builder.
       */
     public com.coffeetechgaff.storm.algorithmnode.AlgorithmNode.Builder clearVersion() {
@@ -803,7 +803,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Gets the value of the 'input' field.
-      * Input source stream type of the analytic. Defined as array for future expansion.
+      * Input source stream type of the algorithm. Defined as array for future expansion.
       * @return The value.
       */
     public java.util.List<com.coffeetechgaff.storm.algorithmnode.NodeConfig> getInput() {
@@ -812,7 +812,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Sets the value of the 'input' field.
-      * Input source stream type of the analytic. Defined as array for future expansion.
+      * Input source stream type of the algorithm. Defined as array for future expansion.
       * @param value The value of 'input'.
       * @return This builder.
       */
@@ -825,7 +825,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Checks whether the 'input' field has been set.
-      * Input source stream type of the analytic. Defined as array for future expansion.
+      * Input source stream type of the algorithm. Defined as array for future expansion.
       * @return True if the 'input' field has been set, false otherwise.
       */
     public boolean hasInput() {
@@ -835,7 +835,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Clears the value of the 'input' field.
-      * Input source stream type of the analytic. Defined as array for future expansion.
+      * Input source stream type of the algorithm. Defined as array for future expansion.
       * @return This builder.
       */
     public com.coffeetechgaff.storm.algorithmnode.AlgorithmNode.Builder clearInput() {
@@ -846,7 +846,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Gets the value of the 'output' field.
-      * Output source stream type of the analytic. Defined as array for future expansion.
+      * Output source stream type of the algorithm. Defined as array for future expansion.
       * @return The value.
       */
     public java.util.List<com.coffeetechgaff.storm.algorithmnode.NodeConfig> getOutput() {
@@ -855,7 +855,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Sets the value of the 'output' field.
-      * Output source stream type of the analytic. Defined as array for future expansion.
+      * Output source stream type of the algorithm. Defined as array for future expansion.
       * @param value The value of 'output'.
       * @return This builder.
       */
@@ -868,7 +868,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Checks whether the 'output' field has been set.
-      * Output source stream type of the analytic. Defined as array for future expansion.
+      * Output source stream type of the algorithm. Defined as array for future expansion.
       * @return True if the 'output' field has been set, false otherwise.
       */
     public boolean hasOutput() {
@@ -878,7 +878,7 @@ public class AlgorithmNode extends org.apache.avro.specific.SpecificRecordBase i
 
     /**
       * Clears the value of the 'output' field.
-      * Output source stream type of the analytic. Defined as array for future expansion.
+      * Output source stream type of the algorithm. Defined as array for future expansion.
       * @return This builder.
       */
     public com.coffeetechgaff.storm.algorithmnode.AlgorithmNode.Builder clearOutput() {

@@ -8,7 +8,7 @@ package com.coffeetechgaff.storm.enumeration;
  */
 public enum MainVertexName{
 
-	DATASOURCE("datasource"), ANALYTIC("analytic");
+	DATANODE("datanode"), ALGORITHM("algorithm");
 
 	private String vertexLabelName;
 
