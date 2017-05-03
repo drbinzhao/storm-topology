@@ -155,8 +155,8 @@ public class ExampleTopologyPowerMockitoTest{
 		doReturn(redis).when(spyTopology).getRedis(redisIp, redisPort);
 		when(redis.exists(redisKey, datasourceTopic)).thenReturn(true);
 		when(redis.exists(redisKey, analyticTopic)).thenReturn(true);
-		when(redis.getProperty(redisKey, datasourceTopic)).thenReturn("datasources");
-		when(redis.getProperty(redisKey, analyticTopic)).thenReturn("avroNode");
+		when(redis.getProperty(redisKey, datasourceTopic)).thenReturn("datanode");
+		when(redis.getProperty(redisKey, analyticTopic)).thenReturn("algorithm");
 
 		// calling real method
 		Config config = spyTopology.loadTopologyProperties(args);
@@ -164,9 +164,9 @@ public class ExampleTopologyPowerMockitoTest{
 		// veryfing the call
 		logger.info(config.toString());
 		assertNotNull(config);
-		assertEquals(6, config.entrySet().size());
-		assertEquals("datasources", config.get(datasourceTopic));
-		assertEquals("avroNode", config.get(analyticTopic));
+		assertEquals(4, config.entrySet().size());
+		assertEquals("datanode", config.get(datasourceTopic));
+		assertEquals("algorithm", config.get(analyticTopic));
 	}
 
 	private Config getConfig(){

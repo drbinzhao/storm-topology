@@ -20,22 +20,22 @@ public class MainVertexNameTest{
 	@Test
 	public void testFromValue(){
 		logger.info("Running testFromValue...");
-		MainVertexName value = MainVertexName.fromValue("datasource");
+		MainVertexName value = MainVertexName.fromValue("datanode");
 		assertEquals(MainVertexName.DATANODE, value);
 	}
 
 	@Test
 	public void tesWrongValue(){
 		logger.info("Running tesWrongValue...");
-		MainVertexName value = MainVertexName.fromValue("ANLYTIC");
+		MainVertexName value = MainVertexName.fromValue("ALGORITHM");
 		assertNotEquals(MainVertexName.ALGORITHM, value);
 	}
 
 	@Test
 	public void testVertexLabel(){
 		logger.info("Running testVertexLabel...");
-		MainVertexName value = MainVertexName.fromValue("datasource");
-		assertEquals("datasource", value.getVertexLabelName());
+		MainVertexName value = MainVertexName.fromValue("datanode");
+		assertEquals("datanode", value.getVertexLabelName());
 	}
 
 	@Test
