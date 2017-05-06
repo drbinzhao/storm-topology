@@ -51,7 +51,7 @@ public class DataVertexCreator extends CommonVertexCode implements GraphVertex<D
 
 		// checking to sure objects are not null
 		if(vertexRecord == null){
-			throw new ObjectIsNullException("DataSourceNodeRecord " + CANNOTBENULL);
+			throw new ObjectIsNullException("DataNode " + CANNOTBENULL);
 		}
 
 		if(graphConnection == null){
@@ -104,7 +104,7 @@ public class DataVertexCreator extends CommonVertexCode implements GraphVertex<D
 
 		if(validatedMap.isEmpty()){
 			throw new ValidatedMapEmptyException(
-					"All attributes become null after running validation against DataSourceNodeRecord object");
+					"All attributes become null after running validation against DataNode object");
 		}
 
 		logger.info("[{}] attributes are loading with value", validatedMap.size());
@@ -135,7 +135,7 @@ public class DataVertexCreator extends CommonVertexCode implements GraphVertex<D
 
 		// checking if the data types are loaded or not
 		if(validatedMap.containsKey(CommonVertexLabelEnums.DATATYPE.getVertexLabelName())){
-			logger.info("DataTypes have been updated on this request. We are re-creating new relationship to the analytics vertices.");
+			logger.info("DataTypes have been updated on this request. We are re-creating new relationship to the algorithmNode vertices.");
 			// dropping old relationship when data type is updated
 			List<Edge> edge = g.V(vertex).bothE(EdgeLabelEnums.WORKSWITH.getEdgeLabelName()).toList();
 			if(!edge.isEmpty()){
@@ -158,14 +158,14 @@ public class DataVertexCreator extends CommonVertexCode implements GraphVertex<D
 	@Override
 	public long createVertex(DataNode nodeRecord) throws ObjectIsNullException, ValidatedMapEmptyException{
 		if(nodeRecord == null){
-			throw new ObjectIsNullException("AnalyitcNodeRecord " + CANNOTBENULL);
+			throw new ObjectIsNullException("AlgorithmNode " + CANNOTBENULL);
 		}
 		DataValidation dataValidation = new DataValidation();
 		Map<String, String> datasourceValidatedMap = dataValidation.validateDatasource(nodeRecord);
 
 		if(datasourceValidatedMap.isEmpty()){
 			throw new ValidatedMapEmptyException(
-					"All attributes become null after running validation against DataSourceNodeRecord object");
+					"All attributes become null after running validation against DataNode object");
 		}
 
 		logger.info("[{}] attributes are loading with value", datasourceValidatedMap.size());
@@ -179,7 +179,7 @@ public class DataVertexCreator extends CommonVertexCode implements GraphVertex<D
 		// memory
 		datasourceValidatedMap.forEach(vertex::property);
 
-		logger.info("New Vertex has been created with id [{}] and with label datasource having datasource id [{}]",
+		logger.info("New Vertex has been created with id [{}] and with label datanode having datanode id [{}]",
 				vertex.id(), nodeRecord.getId());
 
 		transaction.commit();
@@ -199,7 +199,7 @@ public class DataVertexCreator extends CommonVertexCode implements GraphVertex<D
 
 	private void createEdge(String attributeName, List<String> dataTypeList, long vertexId){
 
-		logger.info("Looping through each data type and creating edge if analytic node exists for that datatype {}",
+		logger.info("Looping through each data type and creating edge if algorithm node exists for that datatype {}",
 				dataTypeList);
 		dataTypeList.forEach(dataType -> {
 			List<Vertex> allMatchVertices = g.V().hasLabel(MainVertexName.ALGORITHM.getVertexLabelName())
@@ -207,7 +207,7 @@ public class DataVertexCreator extends CommonVertexCode implements GraphVertex<D
 			logger.info("There are [{}] vertices that matches the datatype [{}] that we are looking for. They are: {}",
 					allMatchVertices.size(), dataType, allMatchVertices);
 			allMatchVertices.forEach(vertex -> {
-				logger.info("Creating an edge between analytics and datasource");
+				logger.info("Creating an edge between algorithm and data");
 				defineRelationShip(vertexId, (Long) vertex.id());
 			});
 		});
@@ -227,7 +227,7 @@ public class DataVertexCreator extends CommonVertexCode implements GraphVertex<D
 		datasourceVertex.addEdge(EdgeLabelEnums.WORKSWITH.getEdgeLabelName(), analyticVertex);
 		g.tx().commit();
 		logger.info(
-				"Edge with [works with] has been marked the relationship between datasource [{}] and analytics [{}] and vice-versa",
+				"Edge with [works with] has been marked the relationship between datanode [{}] and algorithmnode [{}] and vice-versa",
 				dataSourceVertexId, analyticsVertexId);
 	}
 }

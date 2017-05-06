@@ -50,7 +50,7 @@ public class AlgorithmVertexCreator extends CommonVertexCode implements GraphVer
 
 		// checking to sure objects are not null
 		if(record == null){
-			throw new ObjectIsNullException("AnalyitcNodeRecord " + CANNOTBENULL);
+			throw new ObjectIsNullException("AlgorithmNode " + CANNOTBENULL);
 		}
 
 		if(graph == null){
@@ -100,7 +100,7 @@ public class AlgorithmVertexCreator extends CommonVertexCode implements GraphVer
 
 		if(validatedMap.isEmpty()){
 			throw new ValidatedMapEmptyException(
-					"All attributes become null after running validation against AnalyticNodeRecord object");
+					"All attributes become null after running validation against AlgorithmNode object");
 		}
 
 		logger.info("[{}] attributes are loading with value", validatedMap.size());
@@ -116,7 +116,7 @@ public class AlgorithmVertexCreator extends CommonVertexCode implements GraphVer
 		try{
 			updatedVertex = g.V().has(CommonVertexLabelEnums.ID.getVertexLabelName(), nodeRecord.getUid()).next();
 		}catch(FastNoSuchElementException e){
-			logger.error("[{}] data id vertex doesn't exit in directory ", nodeRecord.getUid(), e);
+			logger.error("[{}] data id vertex doesn't exit in graph database ", nodeRecord.getUid(), e);
 			throw new VertexNotFoundException(nodeRecord.getUid() + " data id veretex doesn't exist");
 		}
 
@@ -136,7 +136,7 @@ public class AlgorithmVertexCreator extends CommonVertexCode implements GraphVer
 
 		// checking if we able to retrieve dataTypes from record
 		if(!dataTypes.isEmpty()){
-			logger.info("DataTypes have been updated on this request. We are re-creating new relationship to the datasource vertices.");
+			logger.info("DataTypes have been updated on this request. We are re-creating new relationship to the data vertices.");
 			// dropping old relationship when data type is updated
 			List<Edge> edge = g.V(updatedVertex).bothE(EdgeLabelEnums.WORKSWITH.getEdgeLabelName()).toList();
 			if(!edge.isEmpty()){
@@ -169,7 +169,7 @@ public class AlgorithmVertexCreator extends CommonVertexCode implements GraphVer
 	@Override
 	public long createVertex(AlgorithmNode analyticNode) throws ValidatedMapEmptyException, ObjectIsNullException{
 		if(analyticNode == null){
-			throw new ObjectIsNullException("AnalyitcNodeRecord " + CANNOTBENULL);
+			throw new ObjectIsNullException("AlgorithmNode " + CANNOTBENULL);
 		}
 		
 		AlgorithmValidation algorithmValidation = new AlgorithmValidation();
@@ -177,7 +177,7 @@ public class AlgorithmVertexCreator extends CommonVertexCode implements GraphVer
 
 		if(analyticValidatedMap.isEmpty()){
 			throw new ValidatedMapEmptyException(
-					"All attributes become null after running validation against AnalyticNodeRecord object");
+					"All attributes become null after running validation against AlgorithmNode object");
 		}
 
 		logger.info("[{}] attributes are loading with value", analyticValidatedMap.size());
@@ -206,7 +206,7 @@ public class AlgorithmVertexCreator extends CommonVertexCode implements GraphVer
 		// memory
 		analyticValidatedMap.forEach(vertex::property);
 
-		logger.info("New Vertex has been created with id [{}] and with label analytic having analytics id [{}]",
+		logger.info("New Vertex has been created with id [{}] and with label analytic having algorithm id [{}]",
 				vertex.id(), analyticNode.getUid());
 
 		// committing the vertex from memory to the disk
@@ -229,7 +229,7 @@ public class AlgorithmVertexCreator extends CommonVertexCode implements GraphVer
 
 	private void createEdge(String attributeName, List<String> dataTypeList, long vertexId){
 
-		logger.info("Looping through each data type and creating edge if datasource node exists for that datatype {}",
+		logger.info("Looping through each data type and creating edge if datanode exists for that datatype {}",
 				dataTypeList);
 		dataTypeList.forEach(dataType -> {
 			List<Vertex> allMatchVertices = g.V().hasLabel(MainVertexName.DATANODE.getVertexLabelName())
@@ -237,7 +237,7 @@ public class AlgorithmVertexCreator extends CommonVertexCode implements GraphVer
 			logger.info("There are [{}] vertices that matches the datatype [{}] that we are looking for. They are: {}",
 					allMatchVertices.size(), dataType, allMatchVertices);
 			allMatchVertices.forEach(vertex -> {
-				logger.info("Creating an edge between datasource and analytic vertices");
+				logger.info("Creating an edge between datanode and algorithmnode vertices");
 				defineRelationShip(vertexId, (Long) vertex.id());
 			});
 		});
@@ -246,8 +246,8 @@ public class AlgorithmVertexCreator extends CommonVertexCode implements GraphVer
 
 	@Override
 	public void defineRelationShip(long analyticId, long datasourceId){
-		Assert.notNull(analyticId, "analyticsVertexId " + CANNOTBENULL);
-		Assert.notNull(datasourceId, "dataSourceVertexId " + CANNOTBENULL);
+		Assert.notNull(analyticId, "algorithmVertexId " + CANNOTBENULL);
+		Assert.notNull(datasourceId, "dataVertexId " + CANNOTBENULL);
 
 		Vertex analytic = g.V(analyticId).next();
 		Vertex datasource = g.V(datasourceId).next();
@@ -257,7 +257,7 @@ public class AlgorithmVertexCreator extends CommonVertexCode implements GraphVer
 		datasource.addEdge(EdgeLabelEnums.WORKSWITH.getEdgeLabelName(), analytic);
 		g.tx().commit();
 		logger.info(
-				"Edge with [works with] has been marked the relationship between analytics [{}] and datasource [{}] and vice-versa",
+				"Edge with [works with] has been marked the relationship between algorithmnode [{}] and datanode [{}] and vice-versa",
 				analyticId, datasourceId);
 	}
 }

@@ -40,11 +40,11 @@ public class DataBolt extends BaseRichBolt{
 	@Override
 	public void execute(Tuple tupple){
 		byte[] value = tupple.getBinary(0);
-		DataNode dataSourceNode = deserialize(value);
-		if(dataSourceNode != null){
-			collector.emit(ExampleTopologyUtils.DATASTREAM, new Values(dataSourceNode));
+		DataNode dataeNode = deserialize(value);
+		if(dataeNode != null){
+			collector.emit(ExampleTopologyUtils.DATASTREAM, new Values(dataeNode));
 			logger.info("Emitted value under [{}] is [{}] and send to graph bolt", ExampleTopologyUtils.DATASTREAM,
-					dataSourceNode);
+					dataeNode);
 		}
 		collector.ack(tupple);
 	}

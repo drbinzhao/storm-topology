@@ -10,8 +10,7 @@
     <properties>
 	    <kafka.version>0.10.0.1</kafka.version>
 	    <scala.version>2.11</scala.version>
-	    <janusgraph.version>0.1.0</janusgraph.version>
-	    <hbase.version>1.2.4</hbase.version>
+	    <janusgraph.version>0.2.0-SNAPSHOT</janusgraph.version>
 	    <elasticsearch.version>2.4.4</elasticsearch.version>
 	    <storm.version>1.0.2</storm.version>
     </properties>
