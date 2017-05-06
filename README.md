@@ -28,9 +28,28 @@ Run mvn clean install
 
 ## Deployment
 
+Please make sure to run following images to run this topology:
+1. Redis
+2. Storm
+3. Kafka
+4. Cassandra
+5. Elasticsearch
+
+Then, please follow following steps to deploy the topology to the storm cluster.
+
 1. copy the jar from your local system to the strom nimbus(image name)
 docker cp storm-topology.jar 01e9664c2e9a:/tmp
 
 2. run the jar in storm nimbus
 ./bin/storm jar -c nimbus.host=192.168.99.100 -c nimbus.thrift.port=49627 tmp/storm-topology.jar com.coffeetechgaff.storm.topology.ExampleTopology example-topology
+
+This topology will consumes the message on the topic that use sets in Redis. Kafka Producer needs to be created which serialized the message using Avro serializer and publish the message on the same topic that is being used by this topology.
+This complete working module for topology. Since, there are lots of moving parts on this topology, it might not be feasible to run locally unless the laptop has lots of memory because we need to run following docker images to make it work:
+1. Redis
+2. Storm
+3. Kafka
+4. Cassandra
+5. Elasticsearch
+
+This project can be used to see how the code for Storm topology looks like with spouts and bolts and how they work together with other external databases.
 
