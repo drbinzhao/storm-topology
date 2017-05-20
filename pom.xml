@@ -180,6 +180,19 @@
 		   <artifactId>janusgraph-all</artifactId>
 		   <version>${janusgraph.version}</version>
 		   <exclusions>
+		   	<!-- This will override the log4j.xml that is coming from netflix -->
+		   		<exclusion>
+					<groupId>com.netflix.astyanax</groupId>
+					<artifactId>astyanax-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.netflix.astyanax</groupId>
+					<artifactId>astyanax-thrift</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.netflix.astyanax</groupId>
+					<artifactId>astyanax-recipes</artifactId>
+				</exclusion>
 			   	<exclusion>
 			   		<groupId>org.slf4j</groupId>
 	    			<artifactId>jcl-over-slf4j</artifactId>
