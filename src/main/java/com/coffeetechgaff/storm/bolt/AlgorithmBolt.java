@@ -45,11 +45,11 @@ public class AlgorithmBolt extends BaseRichBolt{
 	@Override
 	public void execute(Tuple input){
 		byte[] value = input.getBinary(0);
-		AlgorithmNode analyticNode = deserialize(value);
-		if(analyticNode != null){
-			collector.emit(ExampleTopologyUtils.ALGORITHMSTREAM, new Values(analyticNode));
+		AlgorithmNode algorithmNode = deserialize(value);
+		if(algorithmNode != null){
+			collector.emit(ExampleTopologyUtils.ALGORITHMSTREAM, new Values(algorithmNode));
 			logger.info("Emitted value under [{}] is [{}] and send to graph bolt", ExampleTopologyUtils.ALGORITHMSTREAM,
-					analyticNode);
+					algorithmNode);
 		}
 		collector.ack(input);
 	}
@@ -60,7 +60,7 @@ public class AlgorithmBolt extends BaseRichBolt{
 	}
 
 	public AlgorithmNode deserialize(byte[] message){
-		AlgorithmNode analytic = null;
+		AlgorithmNode algorithm = null;
 		try{
 			Decoder decoder = DecoderFactory.get().binaryDecoder(message, null);
 			/**
@@ -69,13 +69,13 @@ public class AlgorithmBolt extends BaseRichBolt{
 			 * reading the byte of @AlgorithmNode. If serialized object is
 			 * other than @AlgorithmNode, read.write throws the IOException.
 			 */
-			analytic = reader.read(null, decoder);
+			algorithm = reader.read(null, decoder);
 		}catch(IOException | RuntimeException e){
 			logger.error("Throwing exception on analytic deserialization ", e);
 			logger.error("Something went wrong while deseralizing analytics byte arrays. Please check the avro schema. returning null");
-			return analytic;
+			return algorithm;
 		}
-		return analytic;
+		return algorithm;
 	}
 
 }

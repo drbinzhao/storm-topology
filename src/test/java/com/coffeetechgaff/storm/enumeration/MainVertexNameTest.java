@@ -27,7 +27,7 @@ public class MainVertexNameTest{
 	@Test
 	public void tesWrongValue(){
 		logger.info("Running tesWrongValue...");
-		MainVertexName value = MainVertexName.fromValue("ANLYTIC");
+		MainVertexName value = MainVertexName.fromValue("ALGORITHM");
 		assertNotEquals(MainVertexName.ALGORITHM, value);
 	}
 

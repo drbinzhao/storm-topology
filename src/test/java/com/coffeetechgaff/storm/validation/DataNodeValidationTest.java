@@ -80,14 +80,10 @@ public class DataNodeValidationTest{
 	public void testNullDescription(){
 		DataNode record = new DataNode(Operation.CREATE, "101", createSampleList(),
 				"test3", null, "Unclassified", "Gold");
-
 		logger.info("Running testNullDescription() ...");
-
 		logger.debug("Before validation: ");
 		describe(record);
-
 		assertNull(record.getDescription());
-
 		Map<String, String> validatedMap = validation.validateDatasource(record);
 		assertFalse(validatedMap.containsKey("description"));
 	}
@@ -96,14 +92,10 @@ public class DataNodeValidationTest{
 	public void testNullClassification(){
 		DataNode record = new DataNode(Operation.CREATE, "101", createSampleList(),
 				"test1", "The XZ-1 source.", null, "Gold");
-
 		logger.info("Running testNullClassification() ...");
-
 		logger.debug("Before validation: ");
 		describe(record);
-
 		assertNull(record.getClassification());
-
 		Map<String, String> validatedMap = validation.validateDatasource(record);
 		assertFalse(validatedMap.containsKey("classification"));
 	}
@@ -112,14 +104,10 @@ public class DataNodeValidationTest{
 	public void testNullMaturity(){
 		DataNode record = new DataNode(Operation.CREATE, "101", createSampleList(),
 				"test2", "The XZ-1 source.", "Unclassified", null);
-
 		logger.info("Running testNullMaturity() ...");
-
 		logger.debug("Before validation: ");
 		describe(record);
-
 		assertNull(record.getMaturity());
-
 		Map<String, String> validatedMap = validation.validateDatasource(record);
 		assertFalse(validatedMap.containsKey("maturity"));
 	}

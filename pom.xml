@@ -10,8 +10,7 @@
     <properties>
 	    <kafka.version>0.10.0.1</kafka.version>
 	    <scala.version>2.11</scala.version>
-	    <janusgraph.version>0.1.0</janusgraph.version>
-	    <hbase.version>1.2.4</hbase.version>
+	    <janusgraph.version>0.1.1</janusgraph.version>
 	    <elasticsearch.version>2.4.4</elasticsearch.version>
 	    <storm.version>1.0.2</storm.version>
 	    
@@ -247,6 +246,19 @@
 		   <artifactId>janusgraph-all</artifactId>
 		   <version>${janusgraph.version}</version>
 		   <exclusions>
+		   	<!-- This will override the log4j.xml that is coming from netflix -->
+		   		<exclusion>
+					<groupId>com.netflix.astyanax</groupId>
+					<artifactId>astyanax-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.netflix.astyanax</groupId>
+					<artifactId>astyanax-thrift</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.netflix.astyanax</groupId>
+					<artifactId>astyanax-recipes</artifactId>
+				</exclusion>
 			   	<exclusion>
 			   		<groupId>org.slf4j</groupId>
 	    			<artifactId>jcl-over-slf4j</artifactId>

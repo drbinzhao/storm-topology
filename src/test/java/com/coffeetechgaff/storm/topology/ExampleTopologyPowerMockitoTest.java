@@ -146,8 +146,8 @@ public class ExampleTopologyPowerMockitoTest{
 		String redisIp = args[1];
 		int redisPort = Integer.parseInt(args[2]);
 		String redisKey = args[3];
-		String datasourceTopic = "datasource.topic";
-		String analyticTopic = "analytic.topic";
+		String datasourceTopic = "data.topic";
+		String analyticTopic = "algorithm.topic";
 
 		// mocking
 		ExampleTopology spyTopology = spy(ExampleTopology.class);
@@ -155,8 +155,8 @@ public class ExampleTopologyPowerMockitoTest{
 		doReturn(redis).when(spyTopology).getRedis(redisIp, redisPort);
 		when(redis.exists(redisKey, datasourceTopic)).thenReturn(true);
 		when(redis.exists(redisKey, analyticTopic)).thenReturn(true);
-		when(redis.getProperty(redisKey, datasourceTopic)).thenReturn("datasources");
-		when(redis.getProperty(redisKey, analyticTopic)).thenReturn("avroNode");
+		when(redis.getProperty(redisKey, datasourceTopic)).thenReturn("datanode");
+		when(redis.getProperty(redisKey, analyticTopic)).thenReturn("algorithm");
 
 		// calling real method
 		Config config = spyTopology.loadTopologyProperties(args);
@@ -164,9 +164,9 @@ public class ExampleTopologyPowerMockitoTest{
 		// veryfing the call
 		logger.info(config.toString());
 		assertNotNull(config);
-		assertEquals(4, config.entrySet().size());
-		//assertEquals("datanode", config.get(datasourceTopic));
-		//assertEquals("algorithm", config.get(analyticTopic));
+		assertEquals(6, config.entrySet().size());
+		assertEquals("datanode", config.get(datasourceTopic));
+		assertEquals("algorithm", config.get(analyticTopic));
 	}
 
 	private Config getConfig(){
