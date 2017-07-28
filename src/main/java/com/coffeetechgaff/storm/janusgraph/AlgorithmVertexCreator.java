@@ -141,7 +141,7 @@ public class AlgorithmVertexCreator extends CommonVertexCode implements GraphVer
 			List<Edge> edge = g.V(updatedVertex).bothE(EdgeLabelEnums.WORKSWITH.getEdgeLabelName()).toList();
 			if(!edge.isEmpty()){
 				logger.info("successfully retrived [{}] edges for vertex [{}]", edge.size(), updatedVertex.id());
-				edge.forEach(e -> e.remove());
+				edge.forEach(Edge::remove);
 				g.tx().commit();
 			}
 

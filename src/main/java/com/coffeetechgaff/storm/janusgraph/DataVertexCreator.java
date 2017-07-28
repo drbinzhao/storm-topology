@@ -140,7 +140,7 @@ public class DataVertexCreator extends CommonVertexCode implements GraphVertex<D
 			List<Edge> edge = g.V(vertex).bothE(EdgeLabelEnums.WORKSWITH.getEdgeLabelName()).toList();
 			if(!edge.isEmpty()){
 				logger.info("successfully retrived [{}] edges for vertex [{}]", edge.size(), vertex.id());
-				edge.forEach(e -> e.remove());
+				edge.forEach(Edge::remove);
 				g.tx().commit();
 			}
 

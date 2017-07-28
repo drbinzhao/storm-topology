@@ -14,18 +14,53 @@
 	    <hbase.version>1.2.4</hbase.version>
 	    <elasticsearch.version>2.4.4</elasticsearch.version>
 	    <storm.version>1.0.2</storm.version>
+	    
+	    <!-- Maven specific settings -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.build.timestamp.format>yyyy-MM-dd'T'HH:mm:ssZ</maven.build.timestamp.format>
+        <build.timestamp>${maven.build.timestamp}</build.timestamp>
+
+        <!-- Unit testing -->
+        <test.args>-Xms256m -Xmx1024m</test.args>
+
+        <!-- Sonar reporting -->
+        <sonar.language>java</sonar.language>
+        <sonar.jacoco.reportPath>${jacoco.ut.reportPath}</sonar.jacoco.reportPath>
+        <sonar.jacoco.itReportPath>${jacoco.it.reportPath}</sonar.jacoco.itReportPath>
+        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+        <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+
+        <!-- jacoco reporting -->
+        <jacoco.it.reportPath>${project.build.directory}/coverage-reports/jacoco-it.exec</jacoco.it.reportPath>
+        <jacoco.ut.reportPath>${project.build.directory}/coverage-reports/jacoco-ut.exec</jacoco.ut.reportPath>
+        <jacoco.version>0.7.9</jacoco.version>
+        <jacoco.failsafe.argline />
+
+        <!-- The following are only ever used in the -P generate-coverage-report
+            profile -->
+        <it.reportPath>${project.reporting.outputDirectory}/jacoco-it</it.reportPath>
+        <ut.reportPath>${project.reporting.outputDirectory}/jacoco-ut</ut.reportPath>
     </properties>
     
     <build>
 		<plugins>
-			<plugin>
-	            <groupId>org.apache.maven.plugins</groupId>
-	            <artifactId>maven-compiler-plugin</artifactId>
-	            <configuration>
-	                <source>1.8</source>
-	                <target>1.8</target>
-	            </configuration>
-	        </plugin>
+	        <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            
+	        <!-- SonarQube integration (mvn sonar:sonar) -->
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.0.2</version>
+            </plugin>
 	        <plugin>
 			  <groupId>org.apache.avro</groupId>
 			  <artifactId>avro-maven-plugin</artifactId>
@@ -157,6 +192,37 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<profiles>
+		<!-- Description: Adds a few more executions to the jacoco to generate
+            human readable code coverage reports -->
+        <profile>
+            <id>generate-coverage-report</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>${jacoco.version}</version>
+                        <executions>
+                            <execution>
+                                <id>post-unit-test</id>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                                <configuration>
+                                    <dataFile>${jacoco.ut.reportPath}</dataFile>
+                                    <outputDirectory>${ut.reportPath}</outputDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+		
+	</profiles>
 
 	<dependencies>
 		<dependency>
