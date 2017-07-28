@@ -41,6 +41,7 @@
             profile -->
         <it.reportPath>${project.reporting.outputDirectory}/jacoco-it</it.reportPath>
         <ut.reportPath>${project.reporting.outputDirectory}/jacoco-ut</ut.reportPath>
+        
     </properties>
     
     <build>
