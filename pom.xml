@@ -7,7 +7,8 @@
     <description>The Topology Service</description>
     <packaging>jar</packaging>
 
-    <properties>
+    <properties>	
+    		<java.version>1.8</java.version>
 	    <kafka.version>0.10.0.1</kafka.version>
 	    <scala.version>2.11</scala.version>
 	    <janusgraph.version>0.1.1</janusgraph.version>
@@ -43,102 +44,140 @@
     </properties>
     
     <build>
-		<plugins>
-	        <plugin>
+        <pluginManagement>
+            <plugins>
+                <!--This plugin's configuration is used to store Eclipse m2e settings
+                    only. It has no influence on the Maven build itself. -->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.jacoco</groupId>
+                                        <artifactId>
+                                            jacoco-maven-plugin
+                                        </artifactId>
+                                        <versionRange>
+                                            [${jacoco.version},)
+                                        </versionRange>
+                                        <goals>
+                                            <goal>prepare-agent</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore />
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.apache.avro</groupId>
+                                        <artifactId>avro-maven-plugin</artifactId>
+                                        <versionRange>[1.7.6,)</versionRange>
+                                        <goals>
+                                            <goal>schema</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <execute />
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+
+                <!-- Shading takes all dependencies and creates a mega jar (uberjar)
+                    for deployment -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-shade-plugin</artifactId>
+                    <version>2.4.3</version>
+                </plugin>
+
+                <!-- https://mvnrepository.com/artifact/net.alchim31.maven/scala-maven-plugin -->
+                <plugin>
+                    <groupId>net.alchim31.maven</groupId>
+                    <artifactId>scala-maven-plugin</artifactId>
+                    <version>3.2.2</version>
+                </plugin>
+
+                <!-- for building Docker files, use with 'mvn clean package docker:build' -->
+                <plugin>
+                    <groupId>io.fabric8</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>${docker.plugin.version}</version>
+                    <configuration>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>docker:build</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>build</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.5.1</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                 </configuration>
             </plugin>
-            
-	        <!-- SonarQube integration (mvn sonar:sonar) -->
+
+            <!-- Execute unit tests in every project -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
+                <configuration>
+                    <argLine>${test.args} ${jacoco.surefire.argline}</argLine>
+                    <includes>
+                        <include>**/*.class</include>
+                    </includes>
+                    <rerunFailingTestsCount>3</rerunFailingTestsCount>
+                </configuration>
+            </plugin>
+
+            <!-- SonarQube integration (mvn sonar:sonar) -->
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
                 <version>3.0.2</version>
             </plugin>
-	        <plugin>
-			  <groupId>org.apache.avro</groupId>
-			  <artifactId>avro-maven-plugin</artifactId>
-			  <version>1.8.1</version>
-			  <executions>
-			    <execution>
-			      <phase>generate-sources</phase>
-			      <goals>
-			        <goal>schema</goal>
-			      </goals>
-			      <configuration>
-			        <sourceDirectory>${basedir}/src/main/avro/</sourceDirectory>
-			        <outputDirectory>${basedir}/src/main/java/</outputDirectory>
-			       	<stringType>String</stringType>
-			      </configuration>
-			    </execution>
-			  </executions>
-			</plugin>
-		 	<plugin>
-                   <groupId>org.eclipse.m2e</groupId>
-                   <artifactId>lifecycle-mapping</artifactId>
-                   <version>1.0.0</version>
-                   <configuration>
-                       <lifecycleMappingMetadata>
-                           <pluginExecutions>
-                               <pluginExecution>
-                                   <pluginExecutionFilter>
-                                       <groupId>org.jacoco</groupId>
-                                       <artifactId>
-                                           jacoco-maven-plugin
-                                       </artifactId>
-                                       <versionRange>
-                                           [${jacoco.version},)
-                                       </versionRange>
-                                       <goals>
-                                           <goal>prepare-agent</goal>
-                                       </goals>
-                                   </pluginExecutionFilter>
-                                   <action>
-                                       <ignore/>
-                                   </action>
-                               </pluginExecution>
-                               <pluginExecution>
-                                   <pluginExecutionFilter>
-                                       <groupId>org.apache.avro</groupId>
-                                       <artifactId>avro-maven-plugin</artifactId>
-                                       <versionRange>[1.7.6,)</versionRange>
-                                       <goals>
-                                           <goal>schema</goal>
-                                       </goals>
-                                   </pluginExecutionFilter>
-                                   <action>
-                                       <execute/>
-                                   </action>
-                               </pluginExecution>
-                               <pluginExecution>
-                                   <pluginExecutionFilter>
-                                       <groupId>
-                                           net.revelc.code
-                                       </groupId>
-                                       <artifactId>
-                                           formatter-maven-plugin
-                                       </artifactId>
-                                       <versionRange>
-                                           [0.5.2,)
-                                       </versionRange>
-                                       <goals>
-                                           <goal>format</goal>
-                                       </goals>
-                                   </pluginExecutionFilter>
-                                   <action>
-                                       <ignore/>
-                                   </action>
-                               </pluginExecution>
-                           </pluginExecutions>
-                       </lifecycleMappingMetadata>
-                   </configuration>
-               </plugin>
-				<plugin>
+
+
+            <!-- For building javadocs, use with 'mvn javadoc:aggregate' -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.4</version>
+                <configuration>
+                    <notimestamp>true</notimestamp>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>aggregate</id>
+                        <goals>
+                            <goal>aggregate</goal>
+                        </goals>
+                        <phase>site</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
 				<executions>
@@ -170,11 +209,11 @@
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<manifestEntries>
-										<Specification-Title>Example Storm Topology</Specification-Title>
-										<Specification-Vendor>coffeetechgaff.com</Specification-Vendor>
+										<Specification-Title>Subedi Test Project</Specification-Title>
+										<Specification-Vendor>Subedi</Specification-Vendor>
 										<Specification-Version>${project.version}</Specification-Version>
 										<Implementation-Title>com.coffeetechgaff.storm</Implementation-Title>
-										<Implementation-Vendor>coffeetechgaff.com</Implementation-Vendor>
+										<Implementation-Vendor>Public</Implementation-Vendor>
 										<Implementation-Version>${project.version}</Implementation-Version>
 									</manifestEntries>
 								</transformer>
@@ -189,11 +228,12 @@
 					</execution>
 				</executions>
 			</plugin>
-		</plugins>
-	</build>
-	
-	<profiles>
-		<!-- Description: Adds a few more executions to the jacoco to generate
+        </plugins>
+    </build>
+
+    <profiles>
+
+        <!-- Description: Adds a few more executions to the jacoco to generate
             human readable code coverage reports -->
         <profile>
             <id>generate-coverage-report</id>
@@ -215,13 +255,129 @@
                                     <outputDirectory>${ut.reportPath}</outputDirectory>
                                 </configuration>
                             </execution>
+                            <execution>
+                                <id>post-integration-test</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>report-integration</goal>
+                                </goals>
+                                <configuration>
+                                    <dataFile>${jacoco.it.reportPath}</dataFile>
+                                    <outputDirectory>${it.reportPath}</outputDirectory>
+                                </configuration>
+                            </execution>
                         </executions>
                     </plugin>
                 </plugins>
             </build>
         </profile>
-		
-	</profiles>
+
+        <!-- Description: Will compile code and generate a jar file containing
+            source code -->
+        <profile>
+            <id>sources-jar</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <configuration>
+                            <outputDirectory>${session.executionRootDirectory}/target/build</outputDirectory>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Description: Skip all code quality tools if specified -->
+        <profile>
+            <id>skip-code-quality</id>
+            <activation>
+                <property>
+                    <name>skip-quality</name>
+                </property>
+            </activation>
+            <properties>
+                <skipTests>true</skipTests>
+                <formatter.skip>true</formatter.skip>
+                <findbugs.skip>true</findbugs.skip>
+            </properties>
+        </profile>
+
+        <!-- Description: Code quality plugins are disabled by default for development
+            but will be active in continuous integration. Developers should run these
+            before checking in, but this won't force them to do it for every build. To
+            enable, use -Dcheck-code-quality when building -->
+        <!-- NOTE: This profile is also defined in asc-test, so if you rename the
+            property or the profile name, change that as well. -->
+        <profile>
+            <id>code-quality</id>
+            <activation>
+                <property>
+                    <name>!skip-quality</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+
+                    <!-- Do code coverage reporting -->
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>${jacoco.version}</version>
+                        <executions>
+                            <execution>
+                                <id>pre-unit-test</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                                <configuration>
+                                    <includes>
+                                        <include>com/coffeetechgaff/storm/**</include>
+                                    </includes>
+                                    <destFile>${jacoco.ut.reportPath}</destFile>
+                                    <propertyName>jacoco.surefire.argline</propertyName>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>pre-integration-test</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                                <configuration>
+                                    <includes>
+                                        <include>com/coffeetechgaff/storm/**</include>
+                                    </includes>
+                                    <destFile>${jacoco.it.reportPath}</destFile>
+                                    <propertyName>jacoco.failsafe.argline</propertyName>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <!-- Description: When using Java 1.8, disable doclint (apparently this
+            is important for javadocs?) -->
+        <profile>
+            <id>doclint-java8-disable</id>
+            <activation>
+                <jdk>[1.8,)</jdk>
+            </activation>
+            <properties>
+                <javadoc.opts>-Xdoclint:none</javadoc.opts>
+            </properties>
+        </profile>
+    </profiles>
 
 	<dependencies>
 		<dependency>
@@ -390,8 +546,6 @@
 		    <scope>compile</scope>
 		</dependency>
 		
-		
-	
 		<!-- https://mvnrepository.com/artifact/org.apache.storm/storm-kafka -->
 		<dependency>
 		    <groupId>org.apache.storm</groupId>
@@ -407,7 +561,7 @@
 		    <version>3.4.8</version>
 		</dependency>
 
-				<!-- https://mvnrepository.com/artifact/org.clojure/clojure -->
+		<!-- https://mvnrepository.com/artifact/org.clojure/clojure -->
 		<dependency>
     		<groupId>org.clojure</groupId>
     		<artifactId>clojure</artifactId>
